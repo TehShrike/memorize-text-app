@@ -1,0 +1,25 @@
+{
+  "name": "flash-card-webapp",
+  "version": "1.0.0",
+  "description": "Memorize stuff. Add new decks by creating Google spreadsheets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TehShrike/flash-card-webapp.git"
+  },
+  "keywords": [
+    "flash",
+    "card",
+    "webapp",
+    "memorize"
+  ],
+  "author": "TehShrike",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/TehShrike/flash-card-webapp/issues"
+  },
+  "homepage": "https://github.com/TehShrike/flash-card-webapp#readme"
+}
