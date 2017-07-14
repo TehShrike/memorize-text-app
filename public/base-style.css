@@ -1,0 +1,67 @@
+/* Heavily stolen from http://pixyll.com/ */
+
+body {
+	width: 100%;
+	color: #1b1b1b;
+	background-color: #f9f9f9;
+}
+
+a {
+  color: #0076df;
+  text-decoration: none;
+}
+
+a:visited {
+	color: #00488a;
+}
+
+a:hover, a:focus, a:active {
+	border: 0;
+	color: #000a13;
+}
+
+pre, code { background-color: #eee; border-radius: 3px; }
+
+hr { border: 0; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #ccc; }
+
+p { line-height: 1.5; }
+
+h1 { font-size: 2.5rem; }
+
+h2 { font-size: 2rem; }
+
+h3 { font-size: 1.25rem; }
+
+h4 { font-size: 1rem; }
+
+h5 { font-size: 0.875rem; }
+
+h6 { font-size: 0.75rem; }
+
+body { font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif; line-height: 1.5; font-size: 100%; }
+
+h1, h2, h3, h4, h5, h6 { font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif; font-weight: 900; line-height: 1.25; margin-top: 1em; margin-bottom: .5em; }
+
+strong a { font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif; }
+
+p, dl, ol, ul { font-size: 1rem; margin-top: 0; margin-bottom: 1rem; }
+
+ol, ul { padding-left: 2rem; }
+
+li { padding-top: .3em; padding-bottom: .3em; }
+
+pre, code, samp { font-family: "Source Code Pro", Consolas, monospace; font-size: inherit; }
+
+pre { margin-top: 0; margin-bottom: 1rem; overflow-x: scroll; }
+
+hr { margin-top: 2rem; margin-bottom: 2rem; }
+
+blockquote { margin-top: 2rem; margin-bottom: 2rem; margin-left: 0; padding-left: 1rem; padding-right: 1rem; }
+
+blockquote, blockquote p { font-size: 1.25rem; font-style: italic; }
+
+@media screen and (min-width: 32em) { html { font-size: 16px; }
+	blockquote { margin-left: 2rem; padding: 2rem; }
+@media screen and (min-width: 48em) { html { font-size: 18px; } }
+@media screen and (min-width: 64em) { html { font-size: 20px; } }
+@media screen and (min-width: 78em) { em img { max-width: 56rem; margin-left: -7em; } }
