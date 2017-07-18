@@ -11,14 +11,17 @@ import statefulServices from './globbed-services'
 const mediator = mannish()
 
 const renderer = makeSvelteStateRenderer({
-	// data: {
-	// 	call: mediator.call
-	// }
+	methods: {
+		call: mediator.call
+	}
 })
 
 const stateRouter = StateRouter(renderer, document.getElementById('container'))
 
 mediator.provide('stateGo', stateRouter.go)
+mediator.provide('onStateRouter', (event, cb) => {
+	stateRouter.on(event, cb)
+})
 
 const moduleInitializationPromises = statefulServices.map(module => module(mediator))
 
@@ -44,9 +47,14 @@ stateRouter.on('stateError', error => console.error(error))
 stateRouter.on('stateChangeEnd', (state, params) => console.log('stateChangeEnd', state.name, params))
 
 const stateWatcher = makeAsrStateWatcher(stateRouter)
-const removeAttachListener = stateWatcher.addDomApiAttachListener(domApi => {
+stateWatcher.addDomApiAttachListener(domApi => {
 	if (domApi.onStateInit) {
 		domApi.onStateInit()
+	}
+})
+stateWatcher.addDomApiDetachListener(domApi => {
+	if (domApi.onStateCleanup) {
+		domApi.onStateCleanup()
 	}
 })
 
