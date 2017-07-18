@@ -14,7 +14,7 @@ export default mediator => ({
 			redirect('not-found')
 		} else {
 			return Promise.resolve({
-				number: parameters.number
+				number
 			})
 		}
 	},

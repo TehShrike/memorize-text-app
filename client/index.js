@@ -1,6 +1,8 @@
 import StateRouter from 'abstract-state-router'
 import makeSvelteStateRenderer from 'svelte-state-renderer'
 import mannish from 'mannish'
+import makeAsrStateWatcher from 'asr-active-state-watcher'
+
 import NotFound from './NotFound.html'
 
 import views from './globbed-views'
@@ -40,6 +42,13 @@ stateRouter.on('stateChangeStart', (state, params) => console.log('stateChangeSt
 stateRouter.on('stateChangeError', error => console.error(error))
 stateRouter.on('stateError', error => console.error(error))
 stateRouter.on('stateChangeEnd', (state, params) => console.log('stateChangeEnd', state.name, params))
+
+const stateWatcher = makeAsrStateWatcher(stateRouter)
+const removeAttachListener = stateWatcher.addDomApiAttachListener(domApi => {
+	if (domApi.onStateInit) {
+		domApi.onStateInit()
+	}
+})
 
 Promise.all(moduleInitializationPromises).then(() => {
 	stateRouter.evaluateCurrentRoute('index')

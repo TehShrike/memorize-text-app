@@ -12,9 +12,14 @@
 		<a href="{{asr.makePath(null, { number: nextNumber }, { inherit: true }) }}">Next</a>
 	</p>
 
+	<div>
+		<KeyboardInput ref:input on:input="onKeypress(event)" />
+	</div>
 {{/if}}
 
 <script>
+import KeyboardInput from 'shared/KeyboardInput.html'
+
 export default {
 	helpers: {
 		prompt: row => row[0],
@@ -24,6 +29,19 @@ export default {
 		index: number => number - 1,
 		nextNumber: number => number + 1,
 		currentCard: (sheet, index) => sheet.rows[index]
+	},
+	methods: {
+		onKeypress(key) {
+			console.log(key)
+		},
+		onStateInit() {
+			if (this.get('currentCard')) {
+				this.refs.input.focus()
+			}
+		},
+	},
+	components: {
+		KeyboardInput
 	}
 }
 </script>
