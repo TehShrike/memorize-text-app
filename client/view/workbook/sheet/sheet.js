@@ -1,7 +1,7 @@
 import Sheet from './Sheet.html'
 import sheetsy from 'sheetsy'
 
-export default mannish => ({
+export default mediator => ({
 	name: 'workbook.sheet',
 	route: 'sheet/:sheetId',
 	template: Sheet,

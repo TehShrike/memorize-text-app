@@ -1,7 +1,9 @@
 <h1>Page not found</h1>
-<div>
-	Can't match route:<pre>{{route}}</pre>
-</div>
+{{#if route}}
+	<div>
+		Can't match route:<pre>{{route}}</pre>
+	</div>
+{{/if}}
 <p>
 	<a href="{{asr.makePath('index')}}">Home</a>
 </p>

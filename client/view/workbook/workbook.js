@@ -1,7 +1,7 @@
 import Workbook from './Workbook.html'
 import sheetsy from 'sheetsy'
 
-export default mannish => ({
+export default mediator => ({
 	name: 'workbook',
 	defaultChild: 'select-sheet',
 	route: 'workbook/:key',

@@ -9,9 +9,9 @@ import statefulServices from './globbed-services'
 const mediator = mannish()
 
 const renderer = makeSvelteStateRenderer({
-	data: {
-		call: mediator.call
-	}
+	// data: {
+	// 	call: mediator.call
+	// }
 })
 
 const stateRouter = StateRouter(renderer, document.getElementById('container'))

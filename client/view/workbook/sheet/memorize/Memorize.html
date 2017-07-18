@@ -1,17 +1,29 @@
-<h2>{{sheet.name}}</h2>
-<ol>
-	{{#each sheet.rows as row}}
-		<li>
-			<strong>{{prompt(row)}}</strong> {{answer(row)}}
-		</li>
-	{{/each}}
-</ol>
+<h2>{{workbook.name}} - {{sheet.name}}</h2>
+
+{{#if currentCard}}
+
+	<h3>
+		{{prompt(currentCard)}}
+	</h3>
+	<p>
+		{{answer(currentCard)}}
+	</p>
+	<p>
+		<a href="{{asr.makePath(null, { number: nextNumber }, { inherit: true }) }}">Next</a>
+	</p>
+
+{{/if}}
 
 <script>
 export default {
 	helpers: {
 		prompt: row => row[0],
 		answer: row => row[1],
+	},
+	computed: {
+		index: number => number - 1,
+		nextNumber: number => number + 1,
+		currentCard: (sheet, index) => sheet.rows[index]
 	}
 }
 </script>

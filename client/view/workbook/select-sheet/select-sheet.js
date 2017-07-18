@@ -1,6 +1,6 @@
 import SelectSheet from './SelectSheet.html'
 
-export default mannish => ({
+export default mediator => ({
 	name: 'workbook.select-sheet',
 	route: 'select',
 	template: SelectSheet,
