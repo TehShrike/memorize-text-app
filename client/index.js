@@ -22,10 +22,18 @@ const moduleInitializationPromises = statefulServices.map(module => module(media
 
 views.map(createView => createView(mediator)).forEach(stateRouter.addState)
 
+stateRouter.on('routeNotFound', (route, parameters) => {
+	stateRouter.go('not-found', { route }, { replace: true })
+})
+
 stateRouter.addState({
 	name: 'not-found',
-	route: '*',
-	template: NotFound
+	route: 'not-found',
+	querystringParameters: [ 'route', 'parameters' ],
+	template: NotFound,
+	resolve(data, parameters) {
+		return Promise.resolve(parameters)
+	}
 })
 
 stateRouter.on('stateChangeStart', (state, params) => console.log('stateChangeStart', state.name, params))
