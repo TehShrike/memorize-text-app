@@ -1,7 +1,7 @@
 import SelectSheet from './SelectSheet.html'
 
 export default mannish => ({
-	name: 'memorize.select-sheet',
+	name: 'workbook.select-sheet',
 	route: 'select',
 	template: SelectSheet,
 	resolve(data, { key }) {

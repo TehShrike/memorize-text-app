@@ -1,0 +1,17 @@
+<h2>{{sheet.name}}</h2>
+<ol>
+	{{#each sheet.rows as row}}
+		<li>
+			<strong>{{prompt(row)}}</strong> {{answer(row)}}
+		</li>
+	{{/each}}
+</ol>
+
+<script>
+export default {
+	helpers: {
+		prompt: row => row[0],
+		answer: row => row[1],
+	}
+}
+</script>

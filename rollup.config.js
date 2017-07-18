@@ -30,5 +30,9 @@ export default {
 				'external-helpers'
 			]
 		}),
-	]
+	],
+	watch: {
+		exclude: [ 'node_modules/**' ],
+		include: []
+	}
 }

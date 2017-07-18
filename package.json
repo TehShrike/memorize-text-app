@@ -39,8 +39,8 @@
     "rollup-plugin-commonjs": "8.0.2",
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-svelte": "1.8.1",
-    "rollup-watch": "4.1.0",
-    "sheetsy": "~1.0.1",
+    "rollup-watch": "4.3.1",
+    "sheetsy": "2.1.0",
     "svelte": "1.25.0",
     "svelte-querystring-router": "1.0.3",
     "svelte-state-renderer": "1.2.1"

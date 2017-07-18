@@ -7,7 +7,7 @@ export default mannish => ({
 	activate(context) {
 		const { domApi: component } = context
 		component.on('keySelected', key => {
-			mannish.call('stateGo', 'memorize', { key })
+			mannish.call('stateGo', 'workbook', { key })
 		})
 	}
 })
