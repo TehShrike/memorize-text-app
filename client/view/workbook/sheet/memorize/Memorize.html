@@ -5,20 +5,24 @@
 	<h3>
 		{{prompt(currentCard)}}
 	</h3>
-	<p>
-		{{#each answerWords as word, i}}
+	<div>
+		{{#each answerWordsWithSpaces as word, i}}
 			<span
 				data-word-complete="{{i < wordsComplete}}"
 				data-word-next="{{ wordsComplete === i}}"
-			>{{word}}<span>&nbsp;</span></span>
+			>{{word}}</span>
 		{{/each}}
-	</p>
-	<p>
+	</div>
+	<div>
 		<a href="{{asr.makePath(null, { number: nextNumber }, { inherit: true }) }}">Next</a>
-	</p>
+	</div>
 
 	<div>
-		<KeyboardInput ref:input on:input="onKeypress(event)" />
+		<KeyboardInput
+			ref:input
+			on:input="onKeypress(event)"
+			placeholder="Enter the first letter of the next word"
+		/>
 	</div>
 {{/if}}
 
@@ -47,7 +51,8 @@ export default {
 		currentCard: (sheet, index) => sheet.rows[index],
 		prompt: currentCard => currentCard ? currentCard[0] : '',
 		answer: currentCard => currentCard ? currentCard[1] : '',
-		answerWords: answer => answer.split(/\s+/),
+		answerWords: answer => answer.split(/\s+/).map(word => word + ' '),
+		answerWordsWithSpaces: answerWords => answerWords.map(word => word + ' '),
 		// wordsLeft: (answerWords, wordsComplete) => answerWords.slice(wordsComplete),
 		nextWord: (answerWords, wordsComplete) => answerWords.length > wordsComplete
 			? answerWords[wordsComplete]
