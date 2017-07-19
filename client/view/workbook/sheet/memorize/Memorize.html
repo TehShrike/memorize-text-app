@@ -63,14 +63,14 @@ export default {
 				})
 
 				if (this.get('complete')) {
-					this.call('safeTimeout', this, () => {
+					this.call('goodFlash', this).then(() => {
 						this.call('stateGo', null, {
 							number: this.get('nextNumber')
 						}, { inherit: true })
-					}, 5000)
+					})
 				}
 			} else {
-				// this.call('badFlash')
+				this.call('badFlash', this)
 			}
 		},
 		onStateInit() {
