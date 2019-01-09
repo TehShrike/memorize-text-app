@@ -1,16 +1,15 @@
 import Sheet from './Sheet.html'
-import sheetsy from 'sheetsy'
 
 export default mediator => ({
-	name: 'workbook.sheet',
-	route: 'sheet/:sheetId',
+	name: `workbook.sheet`,
+	route: `sheet/:sheetId`,
 	template: Sheet,
-	resolve(data, { key, sheetId }) {
-		return sheetsy.getSheet(key, sheetId).then(sheet => {
-			return {
-				sheet,
-				sheetId
-			}
-		})
-	}
+	async resolve(data, { sheetId }) {
+		const sheet = await mediator.call(`getSheet`, sheetId)
+
+		return {
+			sheet,
+			sheetId,
+		}
+	},
 })

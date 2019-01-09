@@ -1,15 +1,25 @@
 import Workbook from './Workbook.html'
-import sheetsy from 'sheetsy'
 
 export default mediator => ({
-	name: 'workbook',
-	defaultChild: 'select-sheet',
-	route: 'workbook/:key',
+	name: `workbook`,
+	defaultChild: `select-sheet`,
+	route: `workbook/:key`,
 	template: Workbook,
-	resolve(data, { key }) {
-		return sheetsy.getWorkbook(key).then(workbook => ({
+	async resolve(data, { key }, { redirect }) {
+		const workbook = await mediator.call(`getWorkbook`, key)
+
+		console.log(workbook.sheets)
+		if (workbook.sheets.length === 1) {
+			console.log(`redirecting to`, workbook.sheets[0].id)
+			redirect(`workbook.sheet`, {
+				key,
+				sheetId: workbook.sheets[0].id,
+			})
+		}
+
+		return {
 			workbook,
-			key
-		}))
-	}
+			key,
+		}
+	},
 })
