@@ -1,12 +1,12 @@
-<h1>{{workbook.name}}</h1>
+<h1>{workbook.name}</h1>
 
 <ol>
-	{{#each workbook.sheets as sheet}}
+	{#each workbook.sheets as sheet}
 		<li>
-			{{sheet.name}} -
-			<a href="{{asr.makePath('workbook.sheet.memorize', { sheetId: sheet.id, key } )}}">memorize</a>
+			{sheet.name} -
+			<a href="{asr.makePath('workbook.sheet.memorize', { sheetId: sheet.id, key } )}">memorize</a>
 		</li>
-	{{/each}}
+	{/each}
 </ol>
 
 <script>

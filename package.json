@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tape **/*-test.js",
-    "build": "rollup -c",
+    "build": "npm run glob && rollup -c",
     "watch": "rollup -c -w --dev",
     "watch-glob": "watch \"npm run glob\" client/service client/view",
     "glob": "npm run glob-services && npm run glob-views",
@@ -29,22 +29,18 @@
   },
   "homepage": "https://github.com/TehShrike/flash-card-webapp#readme",
   "dependencies": {
-    "abstract-state-router": "5.16.2",
-    "asr-active-state-watcher": "1.0.2",
-    "babel-plugin-external-helpers": "6.22.0",
-    "babel-preset-es2015": "6.24.1",
-    "glob-module-file": "2.0.0",
+    "abstract-state-router": "^6.1.0",
+    "asr-active-state-watcher": "^1.0.3",
+    "glob-module-file": "^2.2.1",
     "key-master": "3.0.0",
-    "mannish": "3.0.0",
-    "rollup": "0.45.1",
-    "rollup-plugin-babel": "2.7.1",
-    "rollup-plugin-commonjs": "8.0.2",
-    "rollup-plugin-node-resolve": "3.0.0",
-    "rollup-plugin-svelte": "1.8.1",
-    "rollup-watch": "4.3.1",
-    "sheetsy": "2.1.0",
-    "svelte": "1.25.0",
-    "svelte-querystring-router": "1.0.3",
-    "svelte-state-renderer": "1.2.2"
+    "mannish": "^4.0.1",
+    "rollup": "^1.1.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-svelte": "^5.0.1",
+    "sheetsy": "^2.1.4",
+    "svelte": "^2.16.0",
+    "svelte-querystring-router": "^2.0.0",
+    "svelte-state-renderer": "^2.0.0"
   }
 }
