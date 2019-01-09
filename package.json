@@ -6,11 +6,12 @@
   "scripts": {
     "test": "tape **/*-test.js",
     "build": "npm run glob && rollup -c",
-    "watch": "rollup -c -w --dev",
-    "watch-glob": "watch \"npm run glob\" client/service client/view",
-    "glob": "npm run glob-services && npm run glob-views",
-    "glob-services": "glob-module-file --pattern=\"client/service/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-services.js",
-    "glob-views": "glob-module-file --pattern=\"client/view/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-views.js"
+    "watch": "npm-run-all glob --parallel watch:*",
+    "watch:js": "rollup -c -w --dev",
+    "watch:glob": "watch \"npm run glob\" client/service client/view",
+    "glob": "run-p glob:*",
+    "glob:services": "glob-module-file --pattern=\"client/service/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-services.js",
+    "glob:views": "glob-module-file --pattern=\"client/view/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-views.js"
   },
   "repository": {
     "type": "git",
@@ -28,12 +29,13 @@
     "url": "https://github.com/TehShrike/flash-card-webapp/issues"
   },
   "homepage": "https://github.com/TehShrike/flash-card-webapp#readme",
-  "dependencies": {
+  "devDependencies": {
     "abstract-state-router": "^6.1.0",
     "asr-active-state-watcher": "^1.0.3",
     "glob-module-file": "^2.2.1",
     "key-master": "3.0.0",
     "mannish": "^4.0.1",
+    "npm-run-all": "^4.1.5",
     "rollup": "^1.1.0",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^4.0.0",
@@ -41,6 +43,7 @@
     "sheetsy": "^2.1.4",
     "svelte": "^2.16.0",
     "svelte-querystring-router": "^2.0.0",
-    "svelte-state-renderer": "^2.0.0"
+    "svelte-state-renderer": "^2.0.0",
+    "watch": "^1.0.2"
   }
 }
