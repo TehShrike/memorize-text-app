@@ -1,5 +1,9 @@
 <input type="text" bind:value="sheetUrl" on:change="loadSheet(sheetUrl)">
 
+<p>
+	<a href="{ asr.makePath('workbook', { key: '1C6EBjsS-FY6KPzKnHCVFEcpYy_Gh_bvAJWcma50Qwrw' }) }">Try it out</a>
+</p>
+
 {#if error}
 	<div style="color: red">Error: {error}</div>
 {/if}
