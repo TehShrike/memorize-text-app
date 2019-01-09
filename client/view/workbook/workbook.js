@@ -5,16 +5,17 @@ export default mediator => ({
 	defaultChild: `select-sheet`,
 	route: `workbook/:key`,
 	template: Workbook,
-	async resolve(data, { key }, { redirect }) {
+	async resolve(data, { key }) {
 		const workbook = await mediator.call(`getWorkbook`, key)
 
 		console.log(workbook.sheets)
 		if (workbook.sheets.length === 1) {
-			console.log(`redirecting to`, workbook.sheets[0].id)
-			redirect(`workbook.sheet`, {
-				key,
-				sheetId: workbook.sheets[0].id,
-			})
+			throw {
+				redirectTo: {
+					key,
+					sheetId: workbook.sheets[0].id,
+				},
+			}
 		}
 
 		return {
