@@ -1,10 +1,16 @@
 <h1>{workbook.name}</h1>
 
-<ol>
-	{#each workbook.sheets as sheet}
-		<li>
-			{sheet.name} -
-			<a href="{asr.makePath('workbook.sheet.memorize', { sheetId: sheet.id, key } )}">memorize</a>
-		</li>
-	{/each}
-</ol>
+{#if workbook.sheets.length === 1}
+	<p>
+		Loading {workbook.sheets[0].name}...
+	</p>
+{:else}
+	<ol>
+		{#each workbook.sheets as sheet}
+			<li>
+				{sheet.name} -
+				<a href="{asr.makePath('workbook.sheet.memorize', { sheetId: sheet.id, key } )}">memorize</a>
+			</li>
+		{/each}
+	</ol>
+{/if}

@@ -30,8 +30,8 @@ stateRouter.on(`routeNotFound`, (route, parameters) => {
 })
 
 stateRouter.on(`stateChangeStart`, (state, params) => console.log(`stateChangeStart`, state.name, params))
-stateRouter.on(`stateChangeError`, error => console.error(error))
-stateRouter.on(`stateError`, error => console.error(error))
+stateRouter.on(`stateChangeError`, error => console.error(`stateChangeError`, error))
+stateRouter.on(`stateError`, error => console.error(`stateError`, error))
 stateRouter.on(`stateChangeEnd`, (state, params) => console.log(`stateChangeEnd`, state.name, params))
 
 const stateWatcher = makeAsrStateWatcher(stateRouter)

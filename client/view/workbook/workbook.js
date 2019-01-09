@@ -8,16 +8,6 @@ export default mediator => ({
 	async resolve(data, { key }) {
 		const workbook = await mediator.call(`getWorkbook`, key)
 
-		console.log(workbook.sheets)
-		if (workbook.sheets.length === 1) {
-			throw {
-				redirectTo: {
-					key,
-					sheetId: workbook.sheets[0].id,
-				},
-			}
-		}
-
 		return {
 			workbook,
 			key,

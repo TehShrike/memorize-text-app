@@ -1,91 +1,12 @@
 <h2>{workbook.name} - {sheet.name}</h2>
 
-{#if currentCard}
-
-	<h3>
-		{prompt(currentCard)}
-	</h3>
-	<div>
-		{#each answerWordsWithSpaces as word, i}
-			<span
-				data-word-complete="{i < wordsComplete}"
-				data-word-next="{ wordsComplete === i}"
-			>{word}</span>
-		{/each}
-	</div>
-	<div>
-		<a href="{asr.makePath(null, { number: nextNumber }, { inherit: true }) }">Next</a>
-	</div>
-
-	<div>
-		<KeyboardInput
-			ref:input
-			on:input="onKeypress(event)"
-			placeholder="Enter the first letter of the next word"
-		/>
-	</div>
-{/if}
-
-<style>
-[data-word-next=true] {
-	color: red;
-}
-</style>
-
 <script>
-import KeyboardInput from 'shared/KeyboardInput.html'
-
 export default {
 	data() {
 		return {
-			wordsComplete: 0
 		}
 	},
-	helpers: {
-		prompt: row => row[0],
-		answer: row => row[1],
-	},
 	computed: {
-		index: ({ number }) => number - 1,
-		nextNumber: ({ number }) => number + 1,
-		currentCard: ({ sheet, index }) => sheet.rows[index],
-		prompt: ({ currentCard }) => currentCard ? currentCard[0] : '',
-		answer: ({ currentCard }) => currentCard ? currentCard[1] : '',
-		answerWords: ({ answer }) => answer.split(/\s+/).map(word => word + ' '),
-		answerWordsWithSpaces: ({ answerWords }) => answerWords.map(word => word + ' '),
-		// wordsLeft: (answerWords, wordsComplete) => answerWords.slice(wordsComplete),
-		nextWord: ({ answerWords, wordsComplete }) => answerWords.length > wordsComplete
-			? answerWords[wordsComplete]
-			: null,
-		nextCharacter: ({ nextWord }) => nextWord && nextWord[0].toLowerCase(),
-		complete: ({ answerWords, wordsComplete }) => wordsComplete === answerWords.length,
 	},
-	methods: {
-		onKeypress(key) {
-			if (key.toLowerCase() === this.get('nextCharacter')) {
-				this.set({
-					wordsComplete: this.get('wordsComplete') + 1
-				})
-
-				if (this.get('complete')) {
-					this.call('goodFlash', this).then(() => {
-						this.call('stateGo', null, {
-							number: this.get('nextNumber')
-						}, { inherit: true })
-					})
-				}
-			} else {
-				this.call('badFlash', this)
-			}
-		},
-		onStateInit() {
-			if (this.get('currentCard')) {
-				this.refs.input.focus()
-			}
-		},
-	},
-	components: {
-		KeyboardInput
-	}
 }
 </script>

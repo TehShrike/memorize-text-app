@@ -9,4 +9,15 @@ export default mediator => ({
 			key,
 		}
 	},
+	activate({ content, parameters }) {
+		if (content.workbook.sheets.length === 1) {
+			mediator.call(`stateGo`, `workbook.sheet.memorize`, {
+				key: parameters.key,
+				sheetId: content.workbook.sheets[0].id,
+			}, {
+				replace: true,
+				inherit: true,
+			})
+		}
+	},
 })
