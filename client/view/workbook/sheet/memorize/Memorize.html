@@ -1,27 +1,91 @@
 <svelte:window on:keydown="keydown(event)" />
 
-<h1>{workbook.name} - {sheet.name}</h1>
+<div class=container>
+	<div class=content>
+		<h1 style="font-size: 1rem; text-align: center;">{displayHeader}</h1>
 
-{#if sheet.rows.length === 0}
-	<h2>
-		This sheet doesn't have any rows!
-	</h2>
-{:else}
-	<h2>
-		{currentCard.prompt}
-	</h2>
+		{#if sheet.rows.length === 0}
+			<h2>
+				This sheet doesn't have any rows!
+			</h2>
+		{:else}
+			<div class="box">
+				<strong>
+					{currentCard.prompt}
+				</strong>
+			</div>
 
-	{#if showAnswer}
-		<p>
-			{currentCard.answer}
-		</p>
-	{/if}
-
-	<div>
-		<a href={ asr.makePath('index') }>Home</a>
-		{currentQuestionPosition + 1} / {cardsInSheet}
+			<div class="box">
+				<div data-show-text={showAnswer}>
+					{currentCard.answer}
+				</div>
+			</div>
+		{/if}
 	</div>
-{/if}
+
+	<div class=footer>
+		<div class=footer-left>
+			<a href={ asr.makePath('index') }>Home</a>
+		</div>
+		<div class="faint footer-center">
+			<span class=sans-serif>[Spacebar]</span>: Advance
+			·
+			<span class=sans-serif>h</span>: Show hint
+		</div>
+		<div class="faint footer-right nowrap">
+			{currentQuestionPosition + 1} / {cardsInSheet}
+		</div>
+	</div>
+</div>
+
+<style>
+
+.sans-serif {
+	font-family: sans-serif;
+}
+
+.faint {
+	color: var(--lightBlack);
+}
+
+.box {
+	padding: 32px;
+	margin: 32px 8px;
+	border-radius: 5px;
+	box-shadow: 0 0 8px 4px var(--lightGray);
+}
+
+[data-show-text=false] {
+	color: var(--white);
+}
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+}
+@media (max-width: 600px) {
+	.footer {
+		flex-direction: column;
+	}
+	.footer * {
+		flex-basis: 1.8rem;
+	}
+}
+
+.footer * {
+	text-align: center;
+}
+.footer-center {
+	flex-grow: 1;
+}
+.footer-left, .footer-right {
+	flex-basis: 64px;
+}
+.nowrap {
+	white-space: nowrap;
+}
+
+</style>
 
 <script>
 export default {
@@ -44,6 +108,9 @@ export default {
 				: null
 		},
 		cardsInSheet: ({ sheet }) => sheet.rows.length,
+		displayHeader: ({ sheet, workbook }) => sheet.name === `Sheet1`
+			? workbook.name
+			: `${ workbook.name } · ${ sheet.name }`,
 	},
 	methods: {
 		goToNextCard() {

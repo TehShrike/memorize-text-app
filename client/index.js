@@ -14,7 +14,7 @@ const renderer = makeSvelteStateRenderer({
 	},
 })
 
-const stateRouter = StateRouter(renderer, document.getElementById(`container`))
+const stateRouter = StateRouter(renderer, document.getElementById(`app-target`))
 
 mediator.provide(`stateGo`, stateRouter.go)
 mediator.provide(`onStateRouter`, (event, cb) => {

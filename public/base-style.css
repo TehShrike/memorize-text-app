@@ -1,17 +1,39 @@
 /* Heavily stolen from http://pixyll.com/ */
 
+:root {
+	--black: #1b1b1b;
+	--lightBlack: #646464;
+	--gray: #95a5a6;
+	--lightGray: #d4dbdb;
+	--lighterGray: #dee3e3;
+	--white: #f9f9f9;
+	--reallyDarkNavy: #2C3E50;
+	--reallyDarkNavyHover: #42586D;
+	--mediumBlue: #0076df;
+	--blue: #04819E;
+	--red: #C61700;
+	--brightRed: #FF1E00;
+	--deepCarrot: #FF7F00;
+
+	--boxShadowColor: rgba(44, 62, 80, 0.25);
+}
+
 body {
-	color: #1b1b1b;
-	background-color: #f9f9f9;
+	color: var(--black);
+	background-color: var(--white);
+}
+
+body > * {
+	display: flex;
 }
 
 a {
-  color: #0076df;
+  color: var(--mediumBlue);
   text-decoration: none;
 }
 
 a:visited {
-	color: #00488a;
+	color: var(--blue);
 }
 
 a:hover, a:focus, a:active {
@@ -19,9 +41,17 @@ a:hover, a:focus, a:active {
 	color: #000a13;
 }
 
-pre, code { background-color: #eee; border-radius: 3px; }
+pre, code {
+	background-color: var(--lightGray);
+	border-radius: 3px;
+}
 
-hr { border: 0; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #ccc; }
+hr {
+	border: 0;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: var(--lightGray);
+}
 
 p { line-height: 1.5; }
 
@@ -37,9 +67,18 @@ h5 { font-size: 0.875rem; }
 
 h6 { font-size: 0.75rem; }
 
-body { font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif; line-height: 1.5; font-size: 100%; }
+body {
+	font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif;
+	line-height: 1.5;
+}
 
-h1, h2, h3, h4, h5, h6 { font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif; font-weight: 900; line-height: 1.25; margin-top: 1em; margin-bottom: .5em; }
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
+	font-weight: 900;
+	line-height: 1.25;
+	margin-top: 1rem;
+	margin-bottom: .5rem;
+}
 
 strong a { font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif; }
 
@@ -47,7 +86,7 @@ p, dl, ol, ul { font-size: 1rem; margin-top: 0; margin-bottom: 1rem; }
 
 ol, ul { padding-left: 2rem; }
 
-li { padding-top: .3em; padding-bottom: .3em; }
+li { padding-top: .3rem; padding-bottom: .3rem; }
 
 pre, code, samp { font-family: "Source Code Pro", Consolas, monospace; font-size: inherit; }
 
@@ -59,8 +98,26 @@ blockquote { margin-top: 2rem; margin-bottom: 2rem; margin-left: 0; padding-left
 
 blockquote, blockquote p { font-size: 1.25rem; font-style: italic; }
 
-@media screen and (min-width: 32em) { html { font-size: 16px; }
-	blockquote { margin-left: 2rem; padding: 2rem; }
-@media screen and (min-width: 48em) { html { font-size: 18px; } }
-@media screen and (min-width: 64em) { html { font-size: 20px; } }
-@media screen and (min-width: 78em) { em img { max-width: 56rem; margin-left: -7em; } }
+html {
+	font-size: 14px;
+}
+
+@media screen and (min-width: 600px) {
+	html {
+		font-size: 16px;
+	}
+	blockquote {
+		margin-left: 2rem;
+		padding: 2rem;
+	}
+}
+@media screen and (min-width: 800px) {
+	html {
+		font-size: 18px;
+	}
+}
+@media screen and (min-width: 1000px) {
+	html {
+		font-size: 20px;
+	}
+}
