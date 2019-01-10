@@ -1,12 +1,71 @@
+<svelte:window on:keydown="keydown(event)" />
+
 <h1>{workbook.name} - {sheet.name}</h1>
+
+{#if sheet.rows.length === 0}
+	<h2>
+		This sheet doesn't have any rows!
+	</h2>
+{:else}
+	<h2>
+		{currentCard.prompt}
+	</h2>
+
+	{#if showAnswer}
+		<p>
+			{currentCard.answer}
+		</p>
+	{/if}
+
+	<div>
+		<a href={ asr.makePath('index') }>Home</a>
+		{currentQuestionPosition + 1} / {cardsInSheet}
+	</div>
+{/if}
 
 <script>
 export default {
 	data() {
 		return {
+			currentQuestionPosition: 0,
+			sheet: null,
+			showAnswer: false,
 		}
 	},
 	computed: {
+		currentCard: ({ currentQuestionPosition, sheet }) => {
+			const row = sheet.rows[currentQuestionPosition]
+
+			return row
+				? {
+					prompt: row[0],
+					answer: row[1],
+				}
+				: null
+		},
+		cardsInSheet: ({ sheet }) => sheet.rows.length,
+	},
+	methods: {
+		goToNextCard() {
+			const { currentQuestionPosition, cardsInSheet } = this.get()
+			const incrementedPosition = currentQuestionPosition + 1
+
+			this.set({
+				currentQuestionPosition: incrementedPosition >= cardsInSheet ? 0 : incrementedPosition,
+				showAnswer: false,
+			})
+		},
+		keydown({ key }) {
+			if (key === ` `) {
+				if (this.get().showAnswer) {
+					this.goToNextCard()
+				} else {
+					this.set({
+						showAnswer: true,
+					})
+				}
+			}
+		},
 	},
 }
 </script>
