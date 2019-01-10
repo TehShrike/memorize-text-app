@@ -28,9 +28,9 @@
 			<a href={ asr.makePath('index') }>Home</a>
 		</div>
 		<div class="faint footer-center">
-			<span class=sans-serif>[Spacebar]</span>: Advance
+			<span class=key-identifier>[Spacebar]</span> Advance
 			·
-			<span class=sans-serif>h</span>: Show hint
+			<span class=key-identifier>h</span> Show hint
 		</div>
 		<div class="faint footer-right nowrap">
 			{currentQuestionPosition + 1} / {cardsInSheet}
@@ -40,8 +40,12 @@
 
 <style>
 
-.sans-serif {
+.key-identifier {
 	font-family: sans-serif;
+	background-color: var(--gray);
+	color: var(--white);
+	padding: 2px 4px;
+	border-radius: 2px;
 }
 
 .faint {
