@@ -102,7 +102,7 @@ export default {
 		return {
 			currentQuestionPosition: 0,
 			sheet: null,
-			showAnswer: false,
+			answerIsFullyVisible: false,
 			hintLevel: 0,
 		}
 	},
@@ -129,13 +129,13 @@ export default {
 
 			return 3 + ((hintLevel - 1) * 5)
 		},
-		visibleAnswer: ({ showAnswer, currentCard, answerWords, numberOfHintWords }) => showAnswer
+		visibleAnswer: ({ answerIsFullyVisible, currentCard, answerWords, numberOfHintWords }) => answerIsFullyVisible
 			? currentCard.answer
 			: answerWords.slice(0, numberOfHintWords).join(` `),
-		hiddenAnswer: ({ showAnswer, answerWords, numberOfHintWords }) => showAnswer
+		hiddenAnswer: ({ answerIsFullyVisible, answerWords, numberOfHintWords }) => answerIsFullyVisible
 			? ``
 			: answerWords.slice(numberOfHintWords).join(` `),
-		wordsAreLeftToDisplay: ({ showAnswer, numberOfHintWords, answerWords }) => !showAnswer
+		wordsAreLeftToDisplay: ({ answerIsFullyVisible, numberOfHintWords, answerWords }) => !answerIsFullyVisible
 			&& numberOfHintWords < answerWords.length,
 	},
 	methods: {
@@ -145,23 +145,29 @@ export default {
 
 			this.set({
 				currentQuestionPosition: incrementedPosition >= cardsInSheet ? 0 : incrementedPosition,
-				showAnswer: false,
+				answerIsFullyVisible: false,
 				hintLevel: 0,
 			})
 		},
 		keydown({ key }) {
 			if (key === ` `) {
-				if (this.get().showAnswer) {
+				if (this.get().answerIsFullyVisible) {
 					this.goToNextCard()
 				} else {
 					this.set({
-						showAnswer: true,
+						answerIsFullyVisible: true,
 					})
 				}
 			} else if (key === `h` || key === `H`) {
 				this.set({
 					hintLevel: this.get().hintLevel + 1,
 				})
+
+				if (!this.get().wordsAreLeftToDisplay) {
+					this.set({
+						answerIsFullyVisible: true,
+					})
+				}
 			}
 		},
 	},
