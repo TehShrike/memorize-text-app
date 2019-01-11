@@ -1,4 +1,5 @@
 cd public
+touch .nojekyll
 git init
 git config user.email "me@JoshDuff.com"
 git config user.name "TravisCI script"
