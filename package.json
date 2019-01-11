@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"No tests yet\" ",
     "build": "npm run glob && rollup -c",
-    "watch": "npm-run-all glob --parallel watch:*",
+    "serve": "live-server public",
+    "dev": "cross-env NODE_ENV=development npm-run-all glob --parallel watch:* serve",
     "watch:js": "rollup -c -w --dev",
     "watch:glob": "watch \"npm run glob\" client/service client/view",
     "glob": "run-p glob:*",
@@ -32,11 +33,14 @@
   "dependencies": {
     "abstract-state-router": "^6.1.0",
     "asr-active-state-watcher": "^1.0.3",
+    "babel-minify": "^0.5.0",
+    "cross-env": "^5.2.0",
     "glob-module-file": "^2.2.1",
     "key-master": "3.0.0",
     "mannish": "^4.0.1",
     "npm-run-all": "^4.1.5",
     "rollup": "^1.1.0",
+    "rollup-plugin-babel-minify": "^6.2.0",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-svelte": "^5.0.1",
@@ -46,6 +50,7 @@
     "svelte-state-renderer": "^2.0.0"
   },
   "devDependencies": {
+    "live-server": "^1.2.1",
     "watch": "^1.0.2"
   }
 }

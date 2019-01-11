@@ -1,6 +1,11 @@
 import commonjs from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
 import svelte from 'rollup-plugin-svelte'
+import minify from 'rollup-plugin-babel-minify'
+
+const optionalPlugins = process.env.NODE_ENV === `development`
+	? []
+	: [ minify() ]
 
 export default {
 	input: `client/index.js`,
@@ -15,6 +20,7 @@ export default {
 		resolve({
 			browser: true,
 		}),
+		...optionalPlugins,
 	],
 	watch: {
 		exclude: [ `node_modules/**` ],
