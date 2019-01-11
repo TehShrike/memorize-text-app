@@ -5,7 +5,9 @@ mkdir deploy
 cd deploy
 git init
 git remote add ghp https://TehShrike:$GITHUB_TOKEN@github.com/TehShrike/memorize-text-app.git
+git fetch ghp
 git checkout ghp/gh-pages
+git checkout -b gh-pages
 
 git rm *
 touch .nojekyll
