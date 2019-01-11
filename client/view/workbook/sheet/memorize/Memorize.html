@@ -16,9 +16,14 @@
 			</div>
 
 			<div class="box">
-				<div data-show-text={showAnswer}>
-					{currentCard.answer}
-				</div>
+				{visibleAnswer}<span
+					data-hidden={hintLevel === 0 || !wordsAreLeftToDisplay}
+					style="color: var(--lightGray);"
+				>…</span>
+
+				<span style="visibility: hidden">
+					{hiddenAnswer}
+				</span>
 			</div>
 		{/if}
 	</div>
@@ -40,6 +45,10 @@
 
 <style>
 
+[data-hidden=true] {
+	visibility: hidden;
+}
+
 .key-identifier {
 	font-family: sans-serif;
 	background-color: var(--gray);
@@ -57,10 +66,6 @@
 	margin: 32px 8px;
 	border-radius: 5px;
 	box-shadow: 0 0 8px 4px var(--lightGray);
-}
-
-[data-show-text=false] {
-	color: var(--white);
 }
 
 .footer {
@@ -98,6 +103,7 @@ export default {
 			currentQuestionPosition: 0,
 			sheet: null,
 			showAnswer: false,
+			hintLevel: 0,
 		}
 	},
 	computed: {
@@ -115,6 +121,22 @@ export default {
 		displayHeader: ({ sheet, workbook }) => sheet.name === `Sheet1`
 			? workbook.name
 			: `${ workbook.name } · ${ sheet.name }`,
+		answerWords: ({ currentCard }) => currentCard.answer.split(/\s+/g),
+		numberOfHintWords: ({ hintLevel }) => {
+			if (hintLevel === 0) {
+				return 0
+			}
+
+			return 3 + ((hintLevel - 1) * 5)
+		},
+		visibleAnswer: ({ showAnswer, currentCard, answerWords, numberOfHintWords }) => showAnswer
+			? currentCard.answer
+			: answerWords.slice(0, numberOfHintWords).join(` `),
+		hiddenAnswer: ({ showAnswer, answerWords, numberOfHintWords }) => showAnswer
+			? ``
+			: answerWords.slice(numberOfHintWords).join(` `),
+		wordsAreLeftToDisplay: ({ showAnswer, numberOfHintWords, answerWords }) => !showAnswer
+			&& numberOfHintWords < answerWords.length,
 	},
 	methods: {
 		goToNextCard() {
@@ -124,6 +146,7 @@ export default {
 			this.set({
 				currentQuestionPosition: incrementedPosition >= cardsInSheet ? 0 : incrementedPosition,
 				showAnswer: false,
+				hintLevel: 0,
 			})
 		},
 		keydown({ key }) {
@@ -135,6 +158,10 @@ export default {
 						showAnswer: true,
 					})
 				}
+			} else if (key === `h` || key === `H`) {
+				this.set({
+					hintLevel: this.get().hintLevel + 1,
+				})
 			}
 		},
 	},
