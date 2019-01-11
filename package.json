@@ -4,7 +4,7 @@
   "description": "Memorize stuff. Add new decks by creating Google spreadsheets",
   "main": "index.js",
   "scripts": {
-    "test": "tape **/*-test.js",
+    "test": "echo \"No tests yet\" ",
     "build": "npm run glob && rollup -c",
     "watch": "npm-run-all glob --parallel watch:*",
     "watch:js": "rollup -c -w --dev",
@@ -29,7 +29,7 @@
     "url": "https://github.com/TehShrike/flash-card-webapp/issues"
   },
   "homepage": "https://github.com/TehShrike/flash-card-webapp#readme",
-  "devDependencies": {
+  "dependencies": {
     "abstract-state-router": "^6.1.0",
     "asr-active-state-watcher": "^1.0.3",
     "glob-module-file": "^2.2.1",
@@ -43,7 +43,9 @@
     "sheetsy": "^2.1.4",
     "svelte": "^2.16.0",
     "svelte-querystring-router": "^2.0.0",
-    "svelte-state-renderer": "^2.0.0",
+    "svelte-state-renderer": "^2.0.0"
+  },
+  "devDependencies": {
     "watch": "^1.0.2"
   }
 }
