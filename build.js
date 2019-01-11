@@ -3332,20 +3332,20 @@
 		return 3 + ((hintLevel - 1) * 5)
 	}
 
-	function visibleAnswer({ showAnswer, currentCard, answerWords, numberOfHintWords }) {
-		return showAnswer
+	function visibleAnswer({ answerIsFullyVisible, currentCard, answerWords, numberOfHintWords }) {
+		return answerIsFullyVisible
 		? currentCard.answer
 		: answerWords.slice(0, numberOfHintWords).join(` `);
 	}
 
-	function hiddenAnswer({ showAnswer, answerWords, numberOfHintWords }) {
-		return showAnswer
+	function hiddenAnswer({ answerIsFullyVisible, answerWords, numberOfHintWords }) {
+		return answerIsFullyVisible
 		? ``
 		: answerWords.slice(numberOfHintWords).join(` `);
 	}
 
-	function wordsAreLeftToDisplay({ showAnswer, numberOfHintWords, answerWords }) {
-		return !showAnswer
+	function wordsAreLeftToDisplay({ answerIsFullyVisible, numberOfHintWords, answerWords }) {
+		return !answerIsFullyVisible
 		&& numberOfHintWords < answerWords.length;
 	}
 
@@ -3353,7 +3353,7 @@
 		return {
 			currentQuestionPosition: 0,
 			sheet: null,
-			showAnswer: false,
+			answerIsFullyVisible: false,
 			hintLevel: 0,
 		}
 	}
@@ -3364,23 +3364,29 @@
 
 			this.set({
 				currentQuestionPosition: incrementedPosition >= cardsInSheet ? 0 : incrementedPosition,
-				showAnswer: false,
+				answerIsFullyVisible: false,
 				hintLevel: 0,
 			});
 		},
 		keydown({ key }) {
 			if (key === ` `) {
-				if (this.get().showAnswer) {
+				if (this.get().answerIsFullyVisible) {
 					this.goToNextCard();
 				} else {
 					this.set({
-						showAnswer: true,
+						answerIsFullyVisible: true,
 					});
 				}
 			} else if (key === `h` || key === `H`) {
 				this.set({
 					hintLevel: this.get().hintLevel + 1,
 				});
+
+				if (!this.get().wordsAreLeftToDisplay) {
+					this.set({
+						answerIsFullyVisible: true,
+					});
+				}
 			}
 		},
 	};
@@ -3598,7 +3604,7 @@
 		init(this, options);
 		this._state = assign(data$1(), options.data);
 
-		this._recompute({ currentQuestionPosition: 1, sheet: 1, workbook: 1, currentCard: 1, hintLevel: 1, showAnswer: 1, answerWords: 1, numberOfHintWords: 1 }, this._state);
+		this._recompute({ currentQuestionPosition: 1, sheet: 1, workbook: 1, currentCard: 1, hintLevel: 1, answerIsFullyVisible: 1, answerWords: 1, numberOfHintWords: 1 }, this._state);
 		this._intro = true;
 
 		if (!document.getElementById("svelte-123h2zb-style")) add_css();
@@ -3635,15 +3641,15 @@
 			if (this._differs(state.numberOfHintWords, (state.numberOfHintWords = numberOfHintWords(state)))) changed.numberOfHintWords = true;
 		}
 
-		if (changed.showAnswer || changed.currentCard || changed.answerWords || changed.numberOfHintWords) {
+		if (changed.answerIsFullyVisible || changed.currentCard || changed.answerWords || changed.numberOfHintWords) {
 			if (this._differs(state.visibleAnswer, (state.visibleAnswer = visibleAnswer(state)))) changed.visibleAnswer = true;
 		}
 
-		if (changed.showAnswer || changed.answerWords || changed.numberOfHintWords) {
+		if (changed.answerIsFullyVisible || changed.answerWords || changed.numberOfHintWords) {
 			if (this._differs(state.hiddenAnswer, (state.hiddenAnswer = hiddenAnswer(state)))) changed.hiddenAnswer = true;
 		}
 
-		if (changed.showAnswer || changed.numberOfHintWords || changed.answerWords) {
+		if (changed.answerIsFullyVisible || changed.numberOfHintWords || changed.answerWords) {
 			if (this._differs(state.wordsAreLeftToDisplay, (state.wordsAreLeftToDisplay = wordsAreLeftToDisplay(state)))) changed.wordsAreLeftToDisplay = true;
 		}
 	};
