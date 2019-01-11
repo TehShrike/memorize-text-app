@@ -1,9 +1,15 @@
-cd public
-touch .nojekyll
-git init
 git config user.email "me@JoshDuff.com"
 git config user.name "TravisCI script"
+
+mkdir deploy
+cd deploy
+git init
 git remote add ghp https://TehShrike:$GITHUB_TOKEN@github.com/TehShrike/memorize-text-app.git
+git checkout ghp/gh-pages
+
+git rm *
+touch .nojekyll
+mv ../public/* .
 git add *
 git commit -m "auto-deploy"
-git push ghp master:gh-pages -f
+git push ghp gh-pages
