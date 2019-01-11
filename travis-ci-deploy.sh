@@ -10,8 +10,11 @@ git checkout ghp/gh-pages
 git checkout -b gh-pages
 
 git rm *
+
 touch .nojekyll
 git add .nojekyll
+echo "memorizetext.com" > CNAME
+
 mv ../public/* .
 git add *
 git commit -m "auto-deploy"
