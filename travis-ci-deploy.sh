@@ -11,6 +11,7 @@ git checkout -b gh-pages
 
 git rm *
 touch .nojekyll
+git add .nojekyll
 mv ../public/* .
 git add *
 git commit -m "auto-deploy"
