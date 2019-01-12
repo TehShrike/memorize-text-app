@@ -45,6 +45,7 @@
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-svelte": "^5.0.1",
     "sheetsy": "^2.1.4",
+    "small-indexeddb": "^1.0.0",
     "svelte": "^2.16.0",
     "svelte-querystring-router": "^2.0.0",
     "svelte-state-renderer": "^2.0.0"

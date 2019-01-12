@@ -2,6 +2,22 @@
 	<div class="content">
 		<h1>Memorize Text</h1>
 
+		{#if seenWorkbooks.length}
+			<h2>Review one of your decks</h2>
+
+			<ul>
+				{#each seenWorkbooks as seenWorkbook}
+					<li>
+						<a href="{ asr.makePath('workbook', { key: seenWorkbook.key }) }">
+							{seenWorkbook.name}
+						</a>
+					</li>
+				{/each}
+			</ul>
+		{/if}
+
+		<h2>Memorize a new deck</h2>
+
 		<label>
 			Google Sheets share link
 			<input
@@ -14,9 +30,13 @@
 
 		<hr>
 
-		<p>
-			<a href="{ asr.makePath('workbook', { key: '1C6EBjsS-FY6KPzKnHCVFEcpYy_Gh_bvAJWcma50Qwrw' }) }">Try an example deck</a>
-		</p>
+		<h2>Try an example deck</h2>
+
+		<ul>
+			<li>
+				<a href="{ asr.makePath('workbook', { key: '1C6EBjsS-FY6KPzKnHCVFEcpYy_Gh_bvAJWcma50Qwrw' }) }">Good verses to memorize</a>
+			</li>
+		</ul>
 
 		{#if error}
 			<div style="color: var(--red)">Error: {error}</div>

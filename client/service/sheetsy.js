@@ -1,6 +1,6 @@
 import sheetsy from 'sheetsy'
 
-export default mannish => {
-	mannish.provide('getWorkbook', sheetsy.getWorkbook)
-	mannish.provide('getSheet', sheetsy.getSheet)
+export default mediator => {
+	mediator.provide(`getWorkbook`, sheetsy.getWorkbook)
+	mediator.provide(`getSheet`, sheetsy.getSheet)
 }
