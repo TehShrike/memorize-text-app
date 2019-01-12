@@ -31,6 +31,6 @@ export default {
 	],
 	watch: {
 		exclude: [ `node_modules/**` ],
-		include: [],
+		include: [ `client/**` ],
 	},
 }
