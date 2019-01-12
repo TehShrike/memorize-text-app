@@ -22,6 +22,10 @@ To generate a production build:
 npm run build
 ```
 
+The entry point of the app code is `client/index.js`.  The running application is served out of `public/`.
+
+---
+
 [CI config](./.travis.yml) · [Build config](./rollup.config.js)
 
 # License
