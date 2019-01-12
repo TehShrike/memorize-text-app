@@ -1,3 +1,4 @@
 node_modules/**
 client/globbed-*
 public/build.*
+stats.html

@@ -2,9 +2,10 @@ import commonjs from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
 import svelte from 'rollup-plugin-svelte'
 import minify from 'rollup-plugin-babel-minify'
+import visualizer from 'rollup-plugin-visualizer'
 
 const optionalPlugins = process.env.NODE_ENV === `development`
-	? []
+	? [ visualizer() ]
 	: [ minify() ]
 
 export default {
