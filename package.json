@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"No tests yet\" ",
     "build": "npm run glob && rollup -c",
-    "serve": "live-server public",
+    "serve": "live-server --wait=1000 public",
     "dev": "cross-env NODE_ENV=development npm-run-all glob --parallel watch:* serve",
     "watch:js": "rollup -c -w --dev",
     "watch:glob": "watch \"npm run glob\" client/service client/view",
