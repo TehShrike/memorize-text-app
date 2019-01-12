@@ -23,10 +23,6 @@ body {
 	background-color: var(--white);
 }
 
-body > * {
-	display: flex;
-}
-
 a {
   color: var(--mediumBlue);
   text-decoration: none;
