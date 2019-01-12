@@ -5,8 +5,14 @@ import minify from 'rollup-plugin-babel-minify'
 import visualizer from 'rollup-plugin-visualizer'
 
 const optionalPlugins = process.env.NODE_ENV === `development`
-	? [ visualizer() ]
-	: [ minify() ]
+	? [ ]
+	: [
+		minify(),
+		visualizer({
+			filename: `./public/bundle.html`,
+			title: `Pre-minified code size`,
+		}),
+	]
 
 export default {
 	input: `client/index.js`,
