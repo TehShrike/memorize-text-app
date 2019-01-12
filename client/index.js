@@ -21,7 +21,7 @@ mediator.provide(`onStateRouter`, (event, cb) => {
 	stateRouter.on(event, cb)
 })
 
-const moduleInitializationPromises = statefulServices.map(module => module(mediator))
+const serviceInitializationPromises = statefulServices.map(module => module(mediator))
 
 views.map(createView => createView(mediator)).forEach(stateRouter.addState)
 
@@ -46,7 +46,9 @@ stateWatcher.addDomApiDetachListener(domApi => {
 	}
 })
 
-Promise.all(moduleInitializationPromises).then(() => {
+Promise.all(serviceInitializationPromises).then(() => {
 	stateRouter.evaluateCurrentRoute(`index`)
+}).catch(err => {
+	console.error(err)
 })
 
