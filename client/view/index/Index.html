@@ -42,7 +42,7 @@ export default {
 		loadSheet(url) {
 			try {
 				const key = urlToKey(url)
-				this.fire(`keySelected`, key)
+				this.mediatorCall(`stateGo`, `workbook`, { key })
 			} catch (error) {
 				this.set({
 					error,

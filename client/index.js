@@ -10,7 +10,7 @@ const mediator = mannish()
 
 const renderer = makeSvelteStateRenderer({
 	methods: {
-		call: mediator.call,
+		mediatorCall: mediator.call,
 	},
 })
 
