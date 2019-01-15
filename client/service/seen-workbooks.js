@@ -1,24 +1,21 @@
 import smallIndexedDb from 'small-indexeddb'
 
 export default async mediator => {
-	const db = await smallIndexedDb(`seen-sheets`).catch(err => {
+	const transaction = await smallIndexedDb(`seen-sheets2`).catch(err => {
 		console.error(err)
 		return null
 	})
 
-	if (db) {
+	if (transaction) {
 		mediator.provide(`rememberWorkbook`, (key, name) =>
-			db.write([{
+			transaction(`readwrite`, store => store.put({
 				key,
-				value: {
-					key,
-					name,
-				},
-			}])
+				name,
+			}, key))
 		)
 
 		mediator.provide(`getAllSeenWorkbooks`, async() =>
-			db.transaction(`readonly`, store => store.getAll())
+			transaction(`readonly`, store => store.getAll())
 		)
 	} else {
 		mediator.provide(`rememberWorkbook`, async() => {})
