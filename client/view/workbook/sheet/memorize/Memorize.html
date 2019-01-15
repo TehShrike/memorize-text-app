@@ -122,9 +122,15 @@ export default {
 			? workbook.name
 			: `${ workbook.name } · ${ sheet.name }`,
 		answerWords: ({ currentCard }) => currentCard.answer.split(/\s+/g),
-		numberOfHintWords: ({ hintLevel }) => {
+		numberOfHintWords: ({ hintLevel, answerWords }) => {
 			if (hintLevel === 0) {
 				return 0
+			}
+
+			if (answerWords.length <= 8) {
+				return 1 * hintLevel
+			} else if (answerWords.length <= 16) {
+				return 2 * hintLevel
 			}
 
 			return 3 + ((hintLevel - 1) * 5)
