@@ -2,3 +2,4 @@ node_modules/**
 client/globbed-*
 public/build.*
 public/bundle.html
+client/node_modules

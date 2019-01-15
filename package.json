@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"No tests yet\" ",
-    "build": "npm run glob && rollup -c",
+    "build": "npm run prep-build && rollup -c",
+    "prep-build": "run-p create-symlinks glob:*",
+    "create-symlinks": "del-cli client/node_modules && make-dir client/node_modules/ && cd client/node_modules && symlink ../global/ global && cd ../../",
     "serve": "live-server --wait=1000 public",
-    "dev": "cross-env NODE_ENV=development npm-run-all glob --parallel watch:* serve",
+    "dev": "cross-env NODE_ENV=development npm-run-all prep-build --parallel watch:* serve",
     "watch:js": "rollup -c -w --dev",
-    "watch:glob": "watch \"npm run glob\" client/service client/view",
-    "glob": "run-p glob:*",
+    "watch:glob": "watch \"npx run-p glob:*\" client/service client/view",
     "glob:services": "glob-module-file --pattern=\"client/service/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-services.js",
     "glob:views": "glob-module-file --pattern=\"client/view/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-views.js"
   },
@@ -35,8 +36,10 @@
     "asr-active-state-watcher": "^1.0.3",
     "babel-minify": "^0.5.0",
     "cross-env": "^5.2.0",
+    "del-cli": "^1.1.0",
     "glob-module-file": "^2.2.1",
     "key-master": "3.0.0",
+    "make-dir-cli": "^1.0.0",
     "mannish": "^4.0.1",
     "npm-run-all": "^4.1.5",
     "rollup": "^1.1.0",
@@ -48,7 +51,8 @@
     "small-indexeddb": "^2.0.0",
     "svelte": "^2.16.0",
     "svelte-querystring-router": "^2.0.0",
-    "svelte-state-renderer": "^2.0.0"
+    "svelte-state-renderer": "^2.0.0",
+    "symlink-cli": "^1.0.0"
   },
   "devDependencies": {
     "live-server": "^1.2.1",
