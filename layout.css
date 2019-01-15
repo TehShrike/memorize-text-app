@@ -12,7 +12,7 @@ html, body, uiview {
 
 .container {
 	min-height: 100vh;
-	width: calc(100% - calc(var(--containerPadding) * 2));
+	width: calc(100vw - calc(var(--containerPadding) * 2));
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -23,6 +23,7 @@ html, body, uiview {
 
 .content {
 	flex: 1 0 auto;
+	max-width: 800px;
 }
 
 .footer {
@@ -31,7 +32,6 @@ html, body, uiview {
 
 .content, .footer {
 	width: 100%;
-	max-width: 800px;
 	padding: 16px 0;
 }
 
