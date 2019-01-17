@@ -10,7 +10,7 @@
     "create-symlinks": "del-cli client/node_modules && make-dir client/node_modules/ && cd client/node_modules && symlink ../global/ global && cd ../../",
     "serve": "live-server --wait=1000 public",
     "dev": "cross-env NODE_ENV=development npm-run-all prep-build --parallel watch:* serve",
-    "watch:js": "rollup -c -w --dev",
+    "watch:js": "rollup -c -w",
     "watch:glob": "watch \"npx run-p glob:*\" client/service client/view",
     "glob:services": "glob-module-file --pattern=\"client/service/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-services.js",
     "glob:views": "glob-module-file --pattern=\"client/view/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-views.js"

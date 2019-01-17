@@ -12,6 +12,9 @@ const renderer = makeSvelteStateRenderer({
 	methods: {
 		mediatorCall: mediator.call,
 	},
+	data: {
+		mediatorCall: mediator.call,
+	},
 })
 
 const stateRouter = StateRouter(renderer, document.getElementById(`app-target`))

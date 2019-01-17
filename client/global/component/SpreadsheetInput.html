@@ -1,0 +1,59 @@
+<form on:submit="onsubmit(event)">
+	<div class="row">
+		<label>
+			Google Sheets share link
+			<input
+				type="text"
+				bind:value="sheetUrl"
+				placeholder="https://docs.google.com/spreadsheets/d/1C6EBjsS-FY6KPzKnHCVFEcpYy_Gh_bvAJWcma50Qwrw/edit?usp=sharing"
+			>
+		</label>
+		<button type=submit>Load sheet</button>
+	</div>
+	{#if error}
+		<div class=error-color>Error: {error}</div>
+	{/if}
+</form>
+
+<style>
+.row {
+	display: grid;
+	width: 100%;
+	grid-gap: 8px;
+	grid-template-columns: 1fr 0fr;
+}
+.row button {
+	align-self: end;
+}
+</style>
+
+<script>
+import sheetsy from 'sheetsy'
+
+const { urlToKey } = sheetsy
+
+export default {
+	data() {
+		return {
+			sheetUrl: ``,
+			mediatorCall: null,
+			error: null,
+		}
+	},
+	methods: {
+		onsubmit(event) {
+			event.preventDefault()
+
+			const { sheetUrl, mediatorCall } = this.get()
+			try {
+				const key = urlToKey(sheetUrl)
+				mediatorCall(`stateGo`, `workbook`, { key })
+			} catch (error) {
+				this.set({
+					error,
+				})
+			}
+		},
+	},
+}
+</script>

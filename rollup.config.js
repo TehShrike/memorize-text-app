@@ -4,7 +4,8 @@ import svelte from 'rollup-plugin-svelte'
 import minify from 'rollup-plugin-babel-minify'
 import visualizer from 'rollup-plugin-visualizer'
 
-const optionalPlugins = process.env.NODE_ENV === `development`
+const devMode = process.env.NODE_ENV === `development`
+const optionalPlugins = devMode
 	? [ ]
 	: [
 		minify(),
@@ -22,10 +23,13 @@ export default {
 		sourcemap: true,
 	},
 	plugins: [
-		svelte(),
+		svelte({
+			dev: devMode,
+		}),
 		commonjs(),
 		resolve({
 			browser: true,
+			extensions: [ `.js`, `.html` ],
 		}),
 		...optionalPlugins,
 	],

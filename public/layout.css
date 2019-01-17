@@ -40,8 +40,3 @@ html, body, uiview {
 	flex-direction: column;
 	align-items: center;
 }
-
-#app-target > * {
-	display: flex;
-}
-

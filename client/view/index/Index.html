@@ -18,15 +18,7 @@
 
 		<h2>Memorize a new deck</h2>
 
-		<label>
-			Google Sheets share link
-			<input
-				type="text"
-				bind:value="sheetUrl"
-				on:change="loadSheet(sheetUrl)"
-				placeholder="https://docs.google.com/spreadsheets/d/1C6EBjsS-FY6KPzKnHCVFEcpYy_Gh_bvAJWcma50Qwrw/edit?usp=sharing"
-			>
-		</label>
+		<SpreadsheetInput {mediatorCall} />
 
 		<h2>What is this</h2>
 
@@ -58,20 +50,25 @@
 			{/each}
 		</ul>
 
-		{#if error}
-			<div style="color: var(--red)">Error: {error}</div>
-		{/if}
+		<p>
+			Or <a href="{ asr.makePath('new-deck') }">add your own deck of cards to memorize!</a>
+		</p>
+
 	</div>
 	<div class="footer">
-		<a href="https://github.com/TehShrike/memorize-text-app/">Github</a>
+		<a
+			href="https://github.com/TehShrike/memorize-text-app/"
+			target=_blank
+			rel=external
+		>
+			Github
+		</a>
 	</div>
 </div>
 
 <script>
-import sheetsy from 'sheetsy'
 import exampleWorkbooks from 'global/example-workbooks.js'
-
-const { urlToKey } = sheetsy
+import SpreadsheetInput from 'global/component/SpreadsheetInput.html'
 
 export default {
 	data() {
@@ -80,17 +77,8 @@ export default {
 			exampleWorkbooks,
 		}
 	},
-	methods: {
-		loadSheet(url) {
-			try {
-				const key = urlToKey(url)
-				this.mediatorCall(`stateGo`, `workbook`, { key })
-			} catch (error) {
-				this.set({
-					error,
-				})
-			}
-		},
+	components: {
+		SpreadsheetInput,
 	},
 }
 </script>
