@@ -1,12 +1,16 @@
+:root {
+	--inputTransition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
 input {
 	display: block;
 	width: calc(100% - 24px);
 	height: 34px;
 	padding: 6px 12px;
 	font-size: 14px;
-	line-height: 1.42857143;
+	line-height: 1.5;
 	color: var(--lightBlack);
-	background-color: var(--white);
+	background-color: var(--inputWhite);
 	background-image: none;
 	border: 1px solid var(--lightGray);
 	border-radius: 4px;
@@ -15,4 +19,33 @@ input {
 	font-family: inherit;
 	margin: 0;
 	font: inherit;
+
+	transition: var(--inputTransition);
+}
+
+input:focus {
+	box-shadow: 0 0 0 4px var(--boxShadowColor);
+}
+
+
+button {
+	display: inline-block;
+	height: 48px;
+	color: var(--white);
+	background-color: var(--mediumBlue);
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid transparent;
+	padding: 12px 12px;
+	font-size: 16px;
+	line-height: 1.5;
+	border-radius: 4px;
+	transition: var(--inputTransition);
+	white-space: nowrap;
+}
+button:hover, button:active {
+	background-color: var(--blue);
+}
+button:focus {
+	box-shadow: 0 0 0 4px var(--mediumBlueHalfTransparent);
 }
