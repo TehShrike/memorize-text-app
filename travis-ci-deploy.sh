@@ -7,7 +7,7 @@ git config user.email "me@JoshDuff.com" \
 && git fetch ghp \
 && git checkout ghp/gh-pages \
 && git checkout -b gh-pages \
-&& git rm * \
+&& git rm -r * \
 && touch .nojekyll \
 && git add .nojekyll \
 && echo "memorizetext.com" > CNAME \
