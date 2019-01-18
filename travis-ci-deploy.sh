@@ -11,7 +11,7 @@ git config user.email "me@JoshDuff.com" \
 && touch .nojekyll \
 && git add .nojekyll \
 && echo "memorizetext.com" > CNAME \
-&& mv -r ../public/* . \
+&& cp -r ../public/* . \
 && git add * \
 && git commit -m "auto-deploy" \
 && git push ghp gh-pages
