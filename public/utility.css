@@ -1,3 +1,7 @@
 .error-color {
 	color: var(--red);
 }
+
+.nowrap {
+	white-space: nowrap;
+}
