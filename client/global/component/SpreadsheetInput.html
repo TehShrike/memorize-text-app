@@ -1,13 +1,22 @@
 <form on:submit="onsubmit(event)">
 	<div class="row">
+		{#if label}
 		<label>
-			Google Sheets share link
+			{label}
 			<input
 				type="text"
 				bind:value="sheetUrl"
 				placeholder="https://docs.google.com/spreadsheets/d/1C6EBjsS-FY6KPzKnHCVFEcpYy_Gh_bvAJWcma50Qwrw/edit?usp=sharing"
 			>
 		</label>
+		{:else}
+			<input
+				aria-label="Google Sheets share url"
+				type="text"
+				bind:value="sheetUrl"
+				placeholder="https://docs.google.com/spreadsheets/d/1C6EBjsS-FY6KPzKnHCVFEcpYy_Gh_bvAJWcma50Qwrw/edit?usp=sharing"
+			>
+		{/if}
 		<button type=submit>Load sheet</button>
 	</div>
 	{#if error}
@@ -38,6 +47,7 @@ export default {
 			sheetUrl: ``,
 			mediatorCall: null,
 			error: null,
+			label: null,
 		}
 	},
 	methods: {
