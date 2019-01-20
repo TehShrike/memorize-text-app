@@ -33,9 +33,16 @@
 			<a href={ asr.makePath('index') }>Home</a>
 		</div>
 		<div class="faint footer-center">
-			<span class=key-identifier>[Spacebar]</span> Advance
-			·
-			<span class=key-identifier>h</span> Show more hint
+			<button on:click=advance()>
+				{#if answerIsFullyVisible}
+					Advance
+				{:else}
+					Show
+				{/if} {#if !isTouchscreen}[Spacebar]{/if}
+			</button>
+			<button on:click=hint() disabled={answerIsFullyVisible}>
+				Show more hint {#if !isTouchscreen}[h]{/if}
+			</button>
 		</div>
 		<div class="faint footer-right nowrap">
 			{currentQuestionPosition + 1} / {cardsInSheet}
@@ -72,12 +79,33 @@
 	display: flex;
 	justify-content: space-between;
 }
+
+button {
+	margin: 0 4px;
+	width: 13rem;
+}
+
 @media (max-width: 600px) {
 	.footer {
 		flex-direction: column;
 	}
 	.footer * {
 		flex-basis: 1.8rem;
+
+		justify-content: center;
+	}
+
+	.footer-left {
+		order: 1;
+	}
+
+	button {
+		margin: 4px;
+	}
+
+	.box {
+		padding: 16px;
+		margin: 16px 8px;
 	}
 }
 
@@ -89,11 +117,17 @@
 }
 .footer-left, .footer-right {
 	flex-basis: 64px;
+
+	display: flex;
+	align-items: center;
 }
 
 </style>
 
 <script>
+
+import isTouchscreen from 'global/is-touchscreen.js'
+
 export default {
 	data() {
 		return {
@@ -101,6 +135,7 @@ export default {
 			sheet: null,
 			answerIsFullyVisible: false,
 			hintLevel: 0,
+			isTouchscreen,
 		}
 	},
 	computed: {
@@ -152,25 +187,31 @@ export default {
 				hintLevel: 0,
 			})
 		},
+		advance() {
+			if (this.get().answerIsFullyVisible) {
+				this.goToNextCard()
+			} else {
+				this.set({
+					answerIsFullyVisible: true,
+				})
+			}
+		},
+		hint() {
+			this.set({
+				hintLevel: this.get().hintLevel + 1,
+			})
+
+			if (!this.get().wordsAreLeftToDisplay) {
+				this.set({
+					answerIsFullyVisible: true,
+				})
+			}
+		},
 		keydown({ key }) {
 			if (key === ` `) {
-				if (this.get().answerIsFullyVisible) {
-					this.goToNextCard()
-				} else {
-					this.set({
-						answerIsFullyVisible: true,
-					})
-				}
+				this.advance()
 			} else if (key === `h` || key === `H`) {
-				this.set({
-					hintLevel: this.get().hintLevel + 1,
-				})
-
-				if (!this.get().wordsAreLeftToDisplay) {
-					this.set({
-						answerIsFullyVisible: true,
-					})
-				}
+				this.hint()
 			}
 		},
 	},

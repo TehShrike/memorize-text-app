@@ -6,6 +6,8 @@ import makeAsrStateWatcher from 'asr-active-state-watcher'
 import views from './globbed-views'
 import statefulServices from './globbed-services'
 
+import isTouchscreen from 'global/is-touchscreen.js'
+
 const mediator = mannish()
 
 const renderer = makeSvelteStateRenderer({
@@ -50,6 +52,8 @@ stateWatcher.addDomApiDetachListener(domApi => {
 })
 
 Promise.all(serviceInitializationPromises).then(() => {
+	document.body.setAttribute('data-is-touchscreen', isTouchscreen)
+
 	stateRouter.evaluateCurrentRoute(`index`)
 }).catch(err => {
 	console.error(err)
