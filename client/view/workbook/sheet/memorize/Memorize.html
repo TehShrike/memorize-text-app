@@ -16,8 +16,10 @@
 			</div>
 
 			<div class="box">
-				{visibleAnswer}<span
-					data-hidden={hintLevel === 0 || !wordsAreLeftToDisplay}
+				{visibleAnswer}
+
+				<span
+					data-hidden={visibleWords === 0 || !wordsAreLeftToDisplay}
 					style="color: var(--gray);"
 				>…</span>
 
@@ -33,15 +35,22 @@
 			<a href={ asr.makePath('index') }>Home</a>
 		</div>
 		<div class="faint footer-center">
+			<button on:click=showLess() disabled={visibleWords === 0}>
+				Show less {#if !isTouchscreen}[<span class="key-identifier">,</span>]{/if}
+			</button>
+			<button on:click=showMore() disabled={answerIsFullyVisible}>
+				Show more {#if !isTouchscreen}[<span class="key-identifier">.</span>]{/if}
+			</button>
+			<br>
 			<button on:click=advance()>
 				{#if answerIsFullyVisible}
-					Advance
+					Next card
 				{:else}
-					Show
-				{/if} {#if !isTouchscreen}[Spacebar]{/if}
+					Show all
+				{/if} {#if !isTouchscreen}[<span class=key-identifier>Spacebar</span>]{/if}
 			</button>
-			<button on:click=hint() disabled={answerIsFullyVisible}>
-				Show more hint {#if !isTouchscreen}[h]{/if}
+			<button on:click=hint() disabled={answerIsFullyVisible || !chunkable}>
+				Hint {#if !isTouchscreen}[<span class=key-identifier>h</span>]{/if}
 			</button>
 		</div>
 		<div class="faint footer-right nowrap">
@@ -57,11 +66,7 @@
 }
 
 .key-identifier {
-	font-family: sans-serif;
-	background-color: var(--gray);
-	color: var(--white);
-	padding: 2px 4px;
-	border-radius: 2px;
+	font-family: monospace;
 }
 
 .faint {
@@ -81,8 +86,11 @@
 }
 
 button {
-	margin: 0 4px;
+	margin: 4px;
 	width: 13rem;
+}
+:global([data-is-touchscreen=true]) button {
+	width: 10rem;
 }
 
 @media (max-width: 600px) {
@@ -128,13 +136,21 @@ button {
 
 import isTouchscreen from 'global/is-touchscreen.js'
 
+const CHUNK_MIN = 4
+const CHUNK_MAX = 14
+const CHUNK_IDEAL = 8
+const CHUNK_BARRIERS = new Set([ `,`, `.`, `;`, `:`, `"`, `'`, `’`, `”` ])
+
+const isPotentialChunkWord = word => CHUNK_BARRIERS.has(word[word.length - 1])
+
 export default {
 	data() {
 		return {
 			currentQuestionPosition: 0,
 			sheet: null,
 			answerIsFullyVisible: false,
-			hintLevel: 0,
+			hintWordCount: 0,
+			visibleChunkIndex: 0,
 			isTouchscreen,
 		}
 	},
@@ -144,8 +160,8 @@ export default {
 
 			return row
 				? {
-					prompt: row[0],
-					answer: row[1],
+					prompt: row[0].trim(),
+					answer: row[1].trim(),
 				}
 				: null
 		},
@@ -154,29 +170,61 @@ export default {
 			? workbook.name
 			: `${ workbook.name } · ${ sheet.name }`,
 		answerWords: ({ currentCard }) => currentCard.answer.split(/\s+/g),
-		numberOfHintWords: ({ hintLevel, answerWords }) => {
-			if (hintLevel === 0) {
-				return 0
+		chunkable: ({ answerWords }) => answerWords.length >= 20,
+		phraseChunks: ({ chunkable, answerWords }) => {
+			if (!chunkable) {
+				return answerWords.map((_, index) => index)
 			}
 
-			if (answerWords.length <= 8) {
-				return 1 * hintLevel
-			} else if (answerWords.length <= 16) {
-				return 2 * hintLevel
+			const chunks = [ 0 ]
+			let lastChunkPosition = 0
+			let bestChunkSizeSoFar = null
+			let index = 0
+			const addChunk = chunkSize => {
+				const position = chunkSize + lastChunkPosition
+				chunks.push(position)
+				bestChunkSizeSoFar = null
+				lastChunkPosition = position
+				index = position + 1
+			}
+			for (index = 0; index < answerWords.length; ++index) {
+				const word = answerWords[index]
+				const currentChunkSize = index - lastChunkPosition + 1
+
+				if (currentChunkSize >= CHUNK_MAX) {
+					addChunk(bestChunkSizeSoFar || CHUNK_IDEAL)
+				} else if (index === answerWords.length - 1) {
+					addChunk(currentChunkSize)
+				} else if (isPotentialChunkWord(word)) {
+					if (currentChunkSize >= CHUNK_IDEAL) {
+						addChunk(currentChunkSize)
+					} else if (currentChunkSize >= CHUNK_MIN) {
+						bestChunkSizeSoFar = currentChunkSize
+					}
+				}
 			}
 
-			return 3 + ((hintLevel - 1) * 5)
+			return chunks
 		},
-		visibleAnswer: ({ answerIsFullyVisible, currentCard, answerWords, numberOfHintWords }) => answerIsFullyVisible
+		visibleWords: ({ phraseChunks, visibleChunkIndex, hintWordCount }) =>
+			phraseChunks[visibleChunkIndex] + hintWordCount,
+		visibleAnswer: ({ answerIsFullyVisible, currentCard, answerWords, visibleWords }) => answerIsFullyVisible
 			? currentCard.answer
-			: answerWords.slice(0, numberOfHintWords).join(` `),
-		hiddenAnswer: ({ answerIsFullyVisible, answerWords, numberOfHintWords }) => answerIsFullyVisible
+			: answerWords.slice(0, visibleWords).join(` `),
+		hiddenAnswer: ({ answerIsFullyVisible, answerWords, visibleWords }) => answerIsFullyVisible
 			? ``
-			: answerWords.slice(numberOfHintWords).join(` `),
-		wordsAreLeftToDisplay: ({ answerIsFullyVisible, numberOfHintWords, answerWords }) => !answerIsFullyVisible
-			&& numberOfHintWords < answerWords.length,
+			: answerWords.slice(visibleWords).join(` `),
+		wordsAreLeftToDisplay: ({ answerIsFullyVisible, visibleWords, answerWords }) => !answerIsFullyVisible
+			&& visibleWords < answerWords.length,
 	},
 	methods: {
+		updateIfAnswerIsFullyVisible() {
+			if (!this.get().wordsAreLeftToDisplay) {
+				this.set({
+					answerIsFullyVisible: true,
+				})
+			}
+		},
 		goToNextCard() {
 			const { currentQuestionPosition, cardsInSheet } = this.get()
 			const incrementedPosition = currentQuestionPosition + 1
@@ -184,7 +232,8 @@ export default {
 			this.set({
 				currentQuestionPosition: incrementedPosition >= cardsInSheet ? 0 : incrementedPosition,
 				answerIsFullyVisible: false,
-				hintLevel: 0,
+				hintWordCount: 0,
+				visibleChunkIndex: 0,
 			})
 		},
 		advance() {
@@ -193,18 +242,51 @@ export default {
 			} else {
 				this.set({
 					answerIsFullyVisible: true,
+					hintWordCount: 0,
+					visibleChunkIndex: this.get().phraseChunks.length - 1,
+				})
+			}
+		},
+		showMore() {
+			const { wordsAreLeftToDisplay, visibleChunkIndex } = this.get()
+
+			if (wordsAreLeftToDisplay) {
+				this.set({
+					hintWordCount: 0,
+					visibleChunkIndex: visibleChunkIndex + 1,
+				})
+				this.updateIfAnswerIsFullyVisible()
+			}
+		},
+		showLess() {
+			const { visibleChunkIndex, hintWordCount, answerIsFullyVisible, phraseChunks } = this.get()
+
+			if (answerIsFullyVisible) {
+				this.set({
+					hintWordCount: 0,
+					answerIsFullyVisible: false,
+					visibleChunkIndex: phraseChunks.length - 2,
+				})
+			} else if (hintWordCount > 0) {
+				this.set({
+					hintWordCount: 0,
+				})
+			} else if (visibleChunkIndex > 0) {
+				this.set({
+					visibleChunkIndex: visibleChunkIndex - 1,
+					hintWordCount: 0,
 				})
 			}
 		},
 		hint() {
-			this.set({
-				hintLevel: this.get().hintLevel + 1,
-			})
+			const { answerIsFullyVisible, chunkable } = this.get()
 
-			if (!this.get().wordsAreLeftToDisplay) {
+			if (!answerIsFullyVisible && chunkable) {
 				this.set({
-					answerIsFullyVisible: true,
+					hintWordCount: this.get().hintWordCount + 1,
 				})
+
+				this.updateIfAnswerIsFullyVisible()
 			}
 		},
 		keydown({ key }) {
@@ -212,6 +294,10 @@ export default {
 				this.advance()
 			} else if (key === `h` || key === `H`) {
 				this.hint()
+			} else if (key === `,`) {
+				this.showLess()
+			} else if (key === `.`) {
+				this.showMore()
 			}
 		},
 	},

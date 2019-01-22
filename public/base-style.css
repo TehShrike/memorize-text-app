@@ -1,6 +1,7 @@
 /* Heavily stolen from http://pixyll.com/ */
 
 :root {
+	--mediumBlueRgb: 0, 118, 223;
 	--black: #1b1b1b;
 	--lightBlack: #646464;
 	--gray: #95a5a6;
@@ -9,7 +10,7 @@
 	--white: #fefefe;
 	--reallyDarkNavy: #2C3E50;
 	--reallyDarkNavyHover: #42586D;
-	--mediumBlue: #0076df;
+	--mediumBlue: rgb(var(--mediumBlueRgb));
 	--mediumBlueHalfTransparent: #0076df7F;
 	--blue: #04819E;
 	--red: #C61700;
