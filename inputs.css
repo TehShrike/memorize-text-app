@@ -45,6 +45,10 @@ button {
 
 	touch-action: manipulation;
 }
+button[disabled] {
+	background-color: rgba(var(--mediumBlueRgb), 0.8);
+	color: var(--lightGray);
+}
 button:hover, button:active {
 	background-color: var(--blue);
 }
