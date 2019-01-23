@@ -6,7 +6,7 @@ import makeAsrStateWatcher from 'asr-active-state-watcher'
 import views from './globbed-views'
 import statefulServices from './globbed-services'
 
-import isTouchscreen from 'global/is-touchscreen.js'
+import isTouchscreen from 'lib/is-touchscreen.js'
 
 const mediator = mannish()
 

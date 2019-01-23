@@ -134,14 +134,10 @@ button {
 
 <script>
 
-import isTouchscreen from 'global/is-touchscreen.js'
+import isTouchscreen from 'lib/is-touchscreen.js'
+import chunkPhrase from 'lib/phrase-chunker.js'
 
-const CHUNK_MIN = 4
-const CHUNK_MAX = 14
-const CHUNK_IDEAL = 8
-const CHUNK_BARRIERS = new Set([ `,`, `.`, `;`, `:`, `"`, `'`, `’`, `”` ])
-
-const isPotentialChunkWord = word => CHUNK_BARRIERS.has(word[word.length - 1])
+const CHUNK_BARRIERS = new Set([ `,`, `.`, `;`, `:`, `"`, `'`, `’`, `”`, '?' ])
 
 export default {
 	data() {
@@ -171,41 +167,15 @@ export default {
 			: `${ workbook.name } · ${ sheet.name }`,
 		answerWords: ({ currentCard }) => currentCard.answer.split(/\s+/g),
 		chunkable: ({ answerWords }) => answerWords.length >= 20,
-		phraseChunks: ({ chunkable, answerWords }) => {
-			if (!chunkable) {
-				return answerWords.map((_, index) => index)
-			}
-
-			const chunks = [ 0 ]
-			let lastChunkPosition = 0
-			let bestChunkSizeSoFar = null
-			let index = 0
-			const addChunk = chunkSize => {
-				const position = chunkSize + lastChunkPosition
-				chunks.push(position)
-				bestChunkSizeSoFar = null
-				lastChunkPosition = position
-				index = position + 1
-			}
-			for (index = 0; index < answerWords.length; ++index) {
-				const word = answerWords[index]
-				const currentChunkSize = index - lastChunkPosition + 1
-
-				if (currentChunkSize >= CHUNK_MAX) {
-					addChunk(bestChunkSizeSoFar || CHUNK_IDEAL)
-				} else if (index === answerWords.length - 1) {
-					addChunk(currentChunkSize)
-				} else if (isPotentialChunkWord(word)) {
-					if (currentChunkSize >= CHUNK_IDEAL) {
-						addChunk(currentChunkSize)
-					} else if (currentChunkSize >= CHUNK_MIN) {
-						bestChunkSizeSoFar = currentChunkSize
-					}
-				}
-			}
-
-			return chunks
-		},
+		phraseChunks: ({ chunkable, answerWords }) => chunkable
+			? chunkPhrase({
+				words: answerWords,
+				chunkMin: 4,
+				chunkMax: 14,
+				chunkIdeal: 8,
+				chunkBarriers: CHUNK_BARRIERS,
+			})
+			: answerWords.map((_, index) => index),
 		visibleWords: ({ phraseChunks, visibleChunkIndex, hintWordCount }) =>
 			phraseChunks[visibleChunkIndex] + hintWordCount,
 		visibleAnswer: ({ answerIsFullyVisible, currentCard, answerWords, visibleWords }) => answerIsFullyVisible

@@ -1,5 +1,5 @@
 import Workbook from './Workbook.html'
-import exampleWorkbooks from 'global/example-workbooks.js'
+import exampleWorkbooks from 'lib/example-workbooks.js'
 
 const exampleSheetKeysSet = new Set(exampleWorkbooks.map(({ key }) => key))
 
