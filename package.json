@@ -4,14 +4,15 @@
   "description": "Memorize stuff. Add new decks by creating Google spreadsheets",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No tests yet\" ",
+    "test": "npm run glob:tests && rollup -c rollup.test.config.js | node",
     "build": "npm run prep-build && rollup -c",
     "prep-build": "run-p create-symlinks glob:*",
-    "create-symlinks": "del-cli client/node_modules && make-dir client/node_modules/ && cd client/node_modules && symlink ../global/ global && cd ../../",
+    "create-symlinks": "del-cli client/node_modules && make-dir client/node_modules/ && cd client/node_modules && symlink ../lib/ lib && cd ../../",
     "serve": "live-server --wait=1000 public",
     "dev": "cross-env NODE_ENV=development npm-run-all prep-build --parallel watch:* serve",
     "watch:js": "rollup -c -w",
     "watch:glob": "watch \"npx run-p glob:*\" client/service client/view",
+    "glob:tests": "glob-module-file --pattern=\"client/lib/**/*.test.js\" --format=cjs --pathPrefix=../ --outputPath=client/globbed-tests.js",
     "glob:services": "glob-module-file --pattern=\"client/service/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-services.js",
     "glob:views": "glob-module-file --pattern=\"client/view/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-views.js"
   },
@@ -52,7 +53,8 @@
     "svelte": "^2.16.0",
     "svelte-querystring-router": "^2.0.0",
     "svelte-state-renderer": "^2.0.0",
-    "symlink-cli": "^1.0.0"
+    "symlink-cli": "^1.0.0",
+    "zora": "2.0.1"
   },
   "devDependencies": {
     "live-server": "^1.2.1",
