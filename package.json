@@ -4,7 +4,7 @@
   "description": "Memorize stuff. Add new decks by creating Google spreadsheets",
   "main": "index.js",
   "scripts": {
-    "test": "npm run glob:tests && rollup -c rollup.test.config.js | node",
+    "test": "npm run glob:tests && rollup -c rollup.test.config.js | node | tap-color",
     "build": "npm run prep-build && rollup -c",
     "prep-build": "run-p create-symlinks glob:*",
     "create-symlinks": "del-cli client/node_modules && make-dir client/node_modules/ && cd client/node_modules && symlink ../lib/ lib && cd ../../",
@@ -54,6 +54,7 @@
     "svelte-querystring-router": "^2.0.0",
     "svelte-state-renderer": "^2.0.0",
     "symlink-cli": "^1.0.0",
+    "tap-color": "1.1.0",
     "zora": "2.0.1"
   },
   "devDependencies": {
