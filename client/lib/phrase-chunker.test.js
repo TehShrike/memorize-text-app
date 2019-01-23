@@ -10,7 +10,7 @@ test('Chunks a dumb demo sentence with one word at the end', t => {
 		chunkIdeal: 8,
 		chunkBarriers: new Set([ '.' ]),
 	})
-	t.deepEqual(chunks, [ 0, 9, 10 ])
+	t.deepEqual(chunks, [ 0, 9, 11 ])
 })
 
 test('Chunks a dumb demo sentence with two words at the end', t => {
