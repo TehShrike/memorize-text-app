@@ -1,7 +1,9 @@
 <svelte:window on:keydown="keydown(event)" />
 
 <div class=container>
-	<div class=content>
+
+	<!--Main-->
+	<main>
 		<h1 style="text-align: center;">{displayHeader}</h1>
 
 		{#if sheet.rows.length === 0}
@@ -28,9 +30,10 @@
 				</span>
 			</div>
 		{/if}
-	</div>
+	</main>
 
-	<div class=footer>
+	<!--Footer-->
+	<footer>
 		<div class=footer-left>
 			<a href={ asr.makePath('index') }>Home</a>
 		</div>
@@ -56,7 +59,8 @@
 		<div class="faint footer-right nowrap">
 			{currentQuestionPosition + 1} / {cardsInSheet}
 		</div>
-	</div>
+	</footer>
+	
 </div>
 
 <style>
@@ -80,7 +84,7 @@
 	box-shadow: 0 0 8px 4px var(--lightGray);
 }
 
-.footer {
+footer {
 	display: flex;
 	justify-content: space-between;
 }
@@ -94,10 +98,10 @@ button {
 }
 
 @media (max-width: 600px) {
-	.footer {
+	footer {
 		flex-direction: column;
 	}
-	.footer * {
+	footer * {
 		flex-basis: 1.8rem;
 
 		justify-content: center;
@@ -117,7 +121,7 @@ button {
 	}
 }
 
-.footer * {
+footer * {
 	text-align: center;
 }
 .footer-center {
