@@ -29,7 +29,6 @@ html, body, uiview {
 header {
 	max-width: 800px;
 	text-align: left;
-	float: left;
 	width: 100%;
 }
 
