@@ -1,7 +1,12 @@
 <div class="container">
-	<div class="content">
+	
+	<!--Header-->
+	<header>
 		<h1 class=big>Memorize Text</h1>
+	</header>
 
+	<!--Main-->
+	<main>
 		<div class="review">
 			{#if seenWorkbooks.length}
 				<h2>Review one of your decks</h2>
@@ -58,9 +63,10 @@
 				<a href="{ asr.makePath('new-deck') }">Add your deck of flash cards to memorize!</a>
 			</strong>
 		</p>
+	</main>
 
-	</div>
-	<div class="footer">
+	<!--Footer-->
+	<footer>
 		<a
 			href="https://github.com/TehShrike/memorize-text-app/"
 			target=_blank
@@ -80,34 +86,37 @@
 		<div class="footer-right">
 
 		</div>
+	</footer>
+
+	<!--'Are you sure?' window-->
+	<div class="are-you-sure-window">
+		<div>
+			<h2>Are you sure?</h2>
+			<p>Are you sure you want to remove the <b><span class='here'></span></b> deck from this app?</p><p>This will not delete spreadsheet from which this deck originated.</p>
+			<btnsfooter style='display: block;text-align: right'><button on:click=hidePrepareDeleteSeenWorkbook() style='margin-right: 4px; margin-left: 4px;'>Cancel</button><button class="remove" on:click=deleteSeenWorkBook() data-name="" data-key="" style='background-color:rgba(255, 0, 0, 0.548); margin-right: 4px; margin-left: 4px;'>Remove</button></btnsfooter>
+		</div>
 	</div>
 </div>
 
-<!--'Are you sure?' window-->
-<div class="are-you-sure-window">
-	<div>
-		<h2>Are you sure?</h2>
-		<p>Are you sure you want to remove the <b><span class='here'></span></b> deck from this app?</p><p>This will not delete spreadsheet from which this deck originated.</p>
-		<btnsfooter style='display: block;text-align: right'><button on:click=hidePrepareDeleteSeenWorkbook() style='margin-right: 4px; margin-left: 4px;'>Cancel</button><button class="remove" on:click=deleteSeenWorkBook() data-name="" data-key="" style='background-color:rgba(255, 0, 0, 0.548); margin-right: 4px; margin-left: 4px;'>Remove</button></btnsfooter>
-	</div>
-</div>
+
+
 
 <style>
-.footer {
+footer {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 @media (max-width: 600px) {
-	.footer {
+	footer {
 		flex-direction: column;
 	}
-	.footer > * {
+	footer > * {
 		flex-basis: 1.8rem;
 	}
 }
 
-.footer > * {
+footer > * {
 	text-align: center;
 
 	display: flex;
