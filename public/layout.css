@@ -16,8 +16,6 @@ html, body, uiview {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
-	padding: 0 var(--containerPadding);
 	margin: 0;
 }
 
