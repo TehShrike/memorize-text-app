@@ -26,16 +26,21 @@ html, body, uiview {
 	min-height: 85vh;
 }
 
-.content {
+header {
+	max-width: 800px;
+	text-align: left;
+	width: 100%;
+}
+
+main {
 	flex: 1 0 auto;
 	max-width: 800px;
+	width: 100%;
+	padding: 16px 0;
 }
 
-.footer {
+footer {
 	flex-shrink: 0;
-}
-
-.content, .footer {
 	width: 100%;
 	padding: 16px 0;
 }

@@ -1,7 +1,12 @@
 <div class="container">
-	<div class="content">
-		<h1 class=big>Memorize Text</h1>
 
+
+	<header>
+		<h1 class=big>Memorize Text</h1>
+	</header>
+
+
+	<main>
 		{#if seenWorkbooks.length}
 			<h2>Review one of your decks</h2>
 
@@ -55,9 +60,10 @@
 				<a href="{ asr.makePath('new-deck') }">Add your deck of flash cards to memorize!</a>
 			</strong>
 		</p>
+	</main>
 
-	</div>
-	<div class="footer">
+
+	<footer>
 		<a
 			href="https://github.com/TehShrike/memorize-text-app/"
 			target=_blank
@@ -77,25 +83,25 @@
 		<div class="footer-right">
 
 		</div>
-	</div>
+	</footer>
 </div>
 
 <style>
-.footer {
+footer {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 @media (max-width: 600px) {
-	.footer {
+	footer {
 		flex-direction: column;
 	}
-	.footer > * {
+	footer > * {
 		flex-basis: 1.8rem;
 	}
 }
 
-.footer > * {
+footer > * {
 	text-align: center;
 
 	display: flex;
