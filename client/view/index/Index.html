@@ -7,8 +7,9 @@
 
 
 	<main>
-		{#if seenWorkbooks.length}
-			<h2>Review one of your decks</h2>
+		<div class="review">
+			{#if seenWorkbooks.length}
+				<h2>Review one of your decks</h2>
 
 				<ul class='seen-workbooks'>
 					{#each seenWorkbooks as seenWorkbook}
