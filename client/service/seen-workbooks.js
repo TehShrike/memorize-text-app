@@ -17,6 +17,10 @@ export default async mediator => {
 		mediator.provide(`getAllSeenWorkbooks`, async() =>
 			transaction(`readonly`, store => store.getAll())
 		)
+
+		mediator.provide(`forgetWorkbook`, async(key) => 
+			transaction(`readwrite`, store => store.delete(key))
+		)
 	} else {
 		mediator.provide(`rememberWorkbook`, async() => {})
 		mediator.provide(`getAllSeenWorkbooks`, async() => [])

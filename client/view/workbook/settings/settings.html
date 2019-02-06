@@ -7,7 +7,7 @@
 
 
     <main>
-        
+        <button style="background-color: var(--red);" on:click="forgetWorkbook({key})">Remove <b>{workbook.name}</b> from this app</button>
     </main>
 
 
@@ -20,7 +20,6 @@
 
 
 
-
 <script>
 export default {
     data() {
@@ -30,10 +29,11 @@ export default {
     },
 	components: {
 		
-	},
+    },
 	methods: {
-        logSettings: function(set) {
-            console.log(set)
+        forgetWorkbook: function(key) {
+            this.mediatorCall(`forgetWorkbook`, key.key);
+            window.location.replace("/#/home")
         }
     }
 }
