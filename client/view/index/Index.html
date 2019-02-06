@@ -89,8 +89,14 @@
 	</footer>
 </div>
 
-
-
+<!--'Are you sure?' window-->
+<div class="are-you-sure-window">
+	<div>
+		<h2>Are you sure?</h2>
+		<p>Are you sure you want to remove the <b><span class='here'></span></b> deck from this app?</p><p>This will not delete spreadsheet from which this deck originated.</p>
+		<btnsfooter style='display: block;text-align: right'><button on:click=hidePrepareDeleteSeenWorkbook() style='margin-right: 4px; margin-left: 4px;'>Cancel</button><button class="remove" on:click=deleteSeenWorkBook() data-name="" data-key="" style='background-color:rgba(255, 0, 0, 0.548); margin-right: 4px; margin-left: 4px;'>Remove</button></btnsfooter>
+	</div>
+</div>
 
 <style>
 footer {
