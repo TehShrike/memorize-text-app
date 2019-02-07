@@ -1,5 +1,11 @@
 <div class="container">
 
+	{#if message}
+		<alert on:animationend="this.setAttribute('class', 'hidden')" ref:alert>
+			<div class='message'>{message}</div><div class='right'><a href=/#/home on:click=createNewSheet({key})>Undo</a><div on:click=hideAlert() class='remove'>&times;</div></div>
+		</alert>
+	{/if}
+
 
 	<header>
 		<h1 class=big>Memorize Text</h1>
@@ -7,13 +13,13 @@
 
 
 	<main>
-		<div class="review">
+		<div ref:review>
 			{#if seenWorkbooks.length}
 				<h2>Review one of your decks</h2>
 
-				<ul class='seen-workbooks'>
+				<ul ref:seenWorkbooks>
 					{#each seenWorkbooks as seenWorkbook}
-						<li class="key{seenWorkbook.key}">
+						<li>
 							<a href="{ asr.makePath('workbook', { key: seenWorkbook.key }) }">
 								{seenWorkbook.name} 
 							</a>
@@ -140,16 +146,46 @@ import smallIndexedDb from 'small-indexeddb';
 
 export default {
 	data() {
+		var url = window.location.href.split("?");
+		if (url[1] !== undefined) window.location.replace("/#/home");
+		var searchParams = new URLSearchParams(url[1]);
+		var msgopt = "";
+
 		return {
 			sheetUrl: ``,
 			exampleWorkbooks,
+			message: searchParams.get("messagecontent"),
+			key: searchParams.get("key"),
 		}
 	},
 	components: {
 		SpreadsheetInput,
 	},
 	methods: {
-		
+		createNewSheet: function(key) {
+			const workbook = JSON.parse(sessionStorage.getItem(key.key))
+			this.mediatorCall(`rememberWorkbook`, workbook.key, workbook.name)
+			this.hideAlert();
+			const newWorkbook = `
+			<li>
+				<a href="/#/workbook/` + workbook.key + `">
+					` + workbook.name + `
+				</a>
+				(<a 
+					href="/#/settings/` + workbook.key + `"
+					style="font-style: italic;"
+				>more</a>)
+			</li>
+			`;
+			if (this.refs.review.innerHTML === "") {
+				this.refs.review.innerHTML = "<h2>Review one of your decks</h2><ul>" + newWorkbook + "</ul>"
+			}else{
+				this.refs.seenWorkbooks.innerHTML = this.refs.seenWorkbooks.innerHTML + newWorkbook
+			}
+		},
+		hideAlert: function() {
+			this.refs.alert.setAttribute('class', 'animateOut');
+		}
 	}
 };
 </script>
