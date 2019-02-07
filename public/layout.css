@@ -10,14 +10,18 @@ html, body, uiview {
 	--containerPadding: 16px;
 }
 
+@media (min-width: 600px) {
+	:root{
+		--containerPadding: 32px;
+	}
+}
+
 .container {
 	min-height: 100vh;
 	width: calc(100vw - calc(var(--containerPadding) * 2));
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
-	padding: 0 var(--containerPadding);
 	margin: 0;
 }
 
