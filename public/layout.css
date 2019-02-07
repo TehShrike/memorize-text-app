@@ -10,6 +10,12 @@ html, body, uiview {
 	--containerPadding: 16px;
 }
 
+@media (min-width: 600px) {
+	:root{
+		--containerPadding: 32px;
+	}
+}
+
 .container {
 	min-height: 100vh;
 	width: calc(100vw - calc(var(--containerPadding) * 2));
@@ -17,12 +23,6 @@ html, body, uiview {
 	flex-direction: column;
 	align-items: center;
 	margin: 0;
-}
-
-@media (min-width: 600px) {
-	.container {
-		width: calc(100vw - calc(var(--containerPadding) * 4));
-	}
 }
 
 [data-is-touchscreen=true] .container {
