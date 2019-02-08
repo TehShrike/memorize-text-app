@@ -3,3 +3,4 @@ client/globbed-*
 public/build.*
 public/bundle.html
 client/node_modules
+.vscode/settings.json
