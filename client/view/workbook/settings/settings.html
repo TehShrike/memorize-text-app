@@ -1,0 +1,39 @@
+<div class="container">
+
+
+    <header>
+        <h2>{workbook.name}</h2>
+    </header>
+
+
+    <main>
+        <button style="background-color: var(--red);" on:click="forgetWorkbook({key})">Remove <b>{workbook.name}</b> from this app</button>
+    </main>
+
+
+    <footer>
+
+    </footer>
+
+
+</div>
+
+
+
+<script>
+export default {
+    data() {
+	    return {
+		    sheetUrl: ``
+        }
+    },
+	components: {
+		
+    },
+	methods: {
+        forgetWorkbook: function(key) {
+            this.mediatorCall(`forgetWorkbook`, key.key);
+        }
+    }
+}
+</script>

@@ -17,6 +17,15 @@ export default async mediator => {
 		mediator.provide(`getAllSeenWorkbooks`, async() =>
 			transaction(`readonly`, store => store.getAll())
 		)
+
+		mediator.provide(`forgetWorkbook`, async(key) => {
+    		const data = await transaction(`readonly`, store => store.get(key))
+			
+			sessionStorage.setItem(key, JSON.stringify(data));
+
+			await transaction(`readwrite`, store => store.delete(key))
+			window.location.replace("/#/home?messagetype=undo&messagecontent=Deck has been deleted&key=" + key)
+		})
 	} else {
 		mediator.provide(`rememberWorkbook`, async() => {})
 		mediator.provide(`getAllSeenWorkbooks`, async() => [])
