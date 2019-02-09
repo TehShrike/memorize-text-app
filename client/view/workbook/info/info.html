@@ -7,7 +7,12 @@
 
 
     <main>
-        <button style="background-color: var(--red);" on:click="forgetWorkbook({key})">Remove <b>{workbook.name}</b> from this app</button>
+        {#if forgotten}
+            {workbook.name} has been deleted.<br>
+            <button style="background-color: var(--green);" on:click="restoreWorkbook({key}, {workbook})">Restore</button>
+        {:else}
+            <button style="background-color: var(--red);" on:click="forgetAndPrepareForUndo({key})">Remove <b>{workbook.name}</b> from this app</button>
+        {/if}
     </main>
 
 
@@ -24,15 +29,21 @@
 export default {
     data() {
 	    return {
-		    sheetUrl: ``
+            sheetUrl: ``,
+            forgotten: false,
         }
     },
 	components: {
 		
     },
 	methods: {
-        forgetWorkbook: function(key) {
+        async forgetAndPrepareForUndo(key) {
             this.mediatorCall(`forgetWorkbook`, key.key);
+            this.set({forgotten: true})
+        },
+        restoreWorkbook(key, workbook) {
+            this.set({forgotten: false})
+            this.mediatorCall(`rememberWorkbook`, key.key, workbook.workbook.name)
         }
     }
 }
