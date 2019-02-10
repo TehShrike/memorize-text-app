@@ -55,3 +55,7 @@ footer {
 	flex-direction: column;
 	align-items: center;
 }
+
+pre {
+	max-width: var(--containerWidth);
+}

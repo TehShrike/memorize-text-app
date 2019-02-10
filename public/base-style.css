@@ -88,7 +88,7 @@ li { padding-top: .3rem; padding-bottom: .3rem; }
 
 pre, code, samp { font-family: "Source Code Pro", Consolas, monospace; font-size: inherit; }
 
-pre { margin-top: 0; margin-bottom: 1rem; overflow-x: scroll; max-width: var(--containerWidth);}
+pre { margin-top: 0; margin-bottom: 1rem; overflow-x: scroll;}
 
 hr { margin-top: 2rem; margin-bottom: 2rem; }
 
