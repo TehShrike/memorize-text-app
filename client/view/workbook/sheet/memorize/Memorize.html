@@ -7,9 +7,9 @@
 		<h1 style="text-align: center;">{displayHeader}</h1>
 
 		{#if sheet.rows.length === 0}
-			<h2>
-				This sheet doesn't have any rows!
-			</h2>
+			<p>
+				We couldn't load any rows from this sheet!  Make sure it has rows, and there aren't any blank rows.
+			</p>
 		{:else}
 			<div class="box">
 				<strong>
@@ -35,29 +35,37 @@
 
 	<footer>
 		<div class=footer-left>
-			<a href={ asr.makePath('index') }>Home</a>
+			{#if sheet.rows.length === 0}
+				<a href={ asr.makePath('workbook', {key: key}) }>Back</a>
+			{:else}
+				<a href={ asr.makePath('index') }>Home</a>
+			{/if}
 		</div>
-		<div class="faint footer-center">
-			<button on:click=showLess() disabled={visibleWords === 0}>
-				Show less {#if !isTouchscreen}[<span class="key-identifier">,</span>]{/if}
-			</button>
-			<button on:click=showMore() disabled={answerIsFullyVisible}>
-				Show more {#if !isTouchscreen}[<span class="key-identifier">.</span>]{/if}
-			</button>
-			<br>
-			<button on:click=advance()>
-				{#if answerIsFullyVisible}
-					Next card
-				{:else}
-					Show all
-				{/if} {#if !isTouchscreen}[<span class=key-identifier>Spacebar</span>]{/if}
-			</button>
-			<button on:click=hint() disabled={answerIsFullyVisible || !chunkable}>
-				Hint {#if !isTouchscreen}[<span class=key-identifier>h</span>]{/if}
-			</button>
-		</div>
+		{#if sheet.rows.length !== 0}
+			<div class="faint footer-center">
+				<button on:click=showLess() disabled={visibleWords === 0}>
+					Show less {#if !isTouchscreen}[<span class="key-identifier">,</span>]{/if}
+				</button>
+				<button on:click=showMore() disabled={answerIsFullyVisible}>
+					Show more {#if !isTouchscreen}[<span class="key-identifier">.</span>]{/if}
+				</button>
+				<br>
+				<button on:click=advance()>
+					{#if answerIsFullyVisible}
+						Next card
+					{:else}
+						Show all
+					{/if} {#if !isTouchscreen}[<span class=key-identifier>Spacebar</span>]{/if}
+				</button>
+				<button on:click=hint() disabled={answerIsFullyVisible || !chunkable}>
+					Hint {#if !isTouchscreen}[<span class=key-identifier>h</span>]{/if}
+				</button>
+			</div>
+		{/if}
 		<div class="faint footer-right nowrap">
-			{currentQuestionPosition + 1} / {cardsInSheet}
+			{#if sheet.rows.length !== 0}
+				{currentQuestionPosition + 1} / {cardsInSheet}
+			{/if}
 		</div>
 	</footer>
 	
@@ -169,7 +177,10 @@ export default {
 		displayHeader: ({ sheet, workbook }) => sheet.name === `Sheet1`
 			? workbook.name
 			: `${ workbook.name } · ${ sheet.name }`,
-		answerWords: ({ currentCard }) => currentCard.answer.split(/\s+/g),
+		answerWords: ({ currentCard }) => {
+			if (currentCard !== null) return currentCard.answer.split(/\s+/g)
+			else return [];
+		},
 		chunkable: ({ answerWords }) => answerWords.length >= 20,
 		phraseChunks: ({ chunkable, answerWords }) => chunkable
 			? chunkPhrase({
