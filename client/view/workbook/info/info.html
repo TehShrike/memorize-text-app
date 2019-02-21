@@ -11,7 +11,7 @@
             {workbook.name} has been deleted.<br>
             <button style="background-color: var(--green);" on:click="restoreWorkbook(key, workbook)">Restore</button>
         {:else}
-            <button style="background-color: var(--red);" on:click="forgetAndPrepareForUndo({key})">Remove <b>{workbook.name}</b> from this app</button>
+            <button style="background-color: var(--red);" on:click="forgetAndPrepareForUndo(key)">Remove <b>{workbook.name}</b> from this app</button>
         {/if}
     </main>
 
