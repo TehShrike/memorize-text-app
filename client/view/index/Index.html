@@ -6,25 +6,24 @@
 
 
 	<main>
-		<div ref:review>
-			{#if seenWorkbooks.length}
-				<h2>Review one of your decks</h2>
+		
+		{#if seenWorkbooks.length}
+			<h2>Review one of your decks</h2>
 
-				<ul>
-					{#each seenWorkbooks as seenWorkbook}
-						<li>
-							<a href="{ asr.makePath('workbook', { key: seenWorkbook.key }) }">
-								{seenWorkbook.name} 
-							</a>
-							(<a 
-								href="{ asr.makePath('workbook.info', { key: seenWorkbook.key }) }"
-								style="font-style: italic;"
-							>more</a>)
-						</li>
-					{/each}
-				</ul>
-			{/if}
-		</div>
+			<ul>
+				{#each seenWorkbooks as seenWorkbook}
+					<li>
+						<a href="{ asr.makePath('workbook', { key: seenWorkbook.key }) }">
+							{seenWorkbook.name} 
+						</a>
+						(<a 
+							href="{ asr.makePath('workbook.info', { key: seenWorkbook.key }) }"
+							style="font-style: italic;"
+						>more</a>)
+					</li>
+				{/each}
+			</ul>
+		{/if}
 
 		<h2>Memorize a new deck</h2>
 
