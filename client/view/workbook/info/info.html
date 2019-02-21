@@ -37,12 +37,12 @@ export default {
     },
 	methods: {
         async forgetAndPrepareForUndo(key) {
-            this.mediatorCall(`forgetWorkbook`, key.key);
+            this.mediatorCall(`forgetWorkbook`, key);
             this.set({forgotten: true})
         },
         restoreWorkbook(key, workbook) {
             this.set({forgotten: false})
-            this.mediatorCall(`rememberWorkbook`, key.key, workbook.workbook.name)
+            this.mediatorCall(`rememberWorkbook`, key, workbook.name)
         }
     }
 }
