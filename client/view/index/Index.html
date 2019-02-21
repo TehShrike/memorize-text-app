@@ -10,7 +10,7 @@
 			{#if seenWorkbooks.length}
 				<h2>Review one of your decks</h2>
 
-				<ul ref:seenWorkbooks>
+				<ul>
 					{#each seenWorkbooks as seenWorkbook}
 						<li>
 							<a href="{ asr.makePath('workbook', { key: seenWorkbook.key }) }">
