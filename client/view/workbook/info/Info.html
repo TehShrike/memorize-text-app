@@ -22,20 +22,20 @@
 
 <script>
 export default {
-    data() {
-        return {
-            forgotten: false,
-        }
-    },
+	data() {
+		return {
+			forgotten: false,
+		}
+	},
 	methods: {
-        async forgetAndPrepareForUndo(key) {
-            this.mediatorCall(`forgetWorkbook`, key);
-            this.set({forgotten: true})
-        },
-        restoreWorkbook(key, workbook) {
-            this.set({forgotten: false})
-            this.mediatorCall(`rememberWorkbook`, key, workbook.name)
-        }
-    }
+		async forgetAndPrepareForUndo(key) {
+			this.mediatorCall(`forgetWorkbook`, key)
+			this.set({ forgotten: true })
+		},
+		restoreWorkbook(key, workbook) {
+			this.set({ forgotten: false })
+			this.mediatorCall(`rememberWorkbook`, key, workbook.name)
+		},
+	},
 }
 </script>
