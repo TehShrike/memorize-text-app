@@ -1,10 +1,8 @@
 <div class="container">
 
-
     <header>
         <h2>{workbook.name}</h2>
     </header>
-
 
     <main>
         {#if forgotten}
@@ -15,12 +13,9 @@
         {/if}
     </main>
 
-
     <footer>
 
     </footer>
-
-
 </div>
 
 
@@ -28,12 +23,9 @@
 <script>
 export default {
     data() {
-	    return {
+        return {
             forgotten: false,
         }
-    },
-	components: {
-		
     },
 	methods: {
         async forgetAndPrepareForUndo(key) {

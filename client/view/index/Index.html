@@ -4,9 +4,7 @@
 		<h1 class=big>Memorize Text</h1>
 	</header>
 
-
 	<main>
-		
 		{#if seenWorkbooks.length}
 			<h2>Review one of your decks</h2>
 
@@ -14,9 +12,9 @@
 				{#each seenWorkbooks as seenWorkbook}
 					<li>
 						<a href="{ asr.makePath('workbook', { key: seenWorkbook.key }) }">
-							{seenWorkbook.name} 
+							{seenWorkbook.name}
 						</a>
-						(<a 
+						(<a
 							href="{ asr.makePath('workbook.info', { key: seenWorkbook.key }) }"
 							style="font-style: italic;"
 						>more</a>)
@@ -145,8 +143,5 @@ export default {
 	components: {
 		SpreadsheetInput,
 	},
-	methods: {
-		
-	}
-};
+}
 </script>
