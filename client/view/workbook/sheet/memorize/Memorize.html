@@ -7,9 +7,9 @@
 		<h1 style="text-align: center;">{displayHeader}</h1>
 
 		{#if sheet.rows.length === 0}
-			<p>
-				We couldn't load any rows from this sheet!  Make sure it has rows, and there aren't any blank rows.
-			</p>
+			<h2>
+				This sheet doesn't have any rows!
+			</h2>
 		{:else}
 			<div class="box">
 				<strong>
@@ -35,68 +35,54 @@
 
 	<footer>
 		<div class=footer-left>
-			{#if sheet.rows.length === 0}
-				<a href={ asr.makePath('workbook', {key: key}) }>Back</a>
-			{:else}
-				<a href={ asr.makePath('index') }>Home</a>
-			{/if}
+			<a href={ asr.makePath('index') }>Home</a>
 		</div>
-		{#if sheet.rows.length !== 0}
-			<div class="faint footer-center">
-				<button on:click=showLess() disabled={visibleWords === 0}>
-					Show less {#if !isTouchscreen}[<span class="key-identifier">,</span>]{/if}
-				</button>
-				<button on:click=showMore() disabled={answerIsFullyVisible}>
-					Show more {#if !isTouchscreen}[<span class="key-identifier">.</span>]{/if}
-				</button>
-				<br>
-				<button on:click=advance()>
-					{#if answerIsFullyVisible}
-						Next card
-					{:else}
-						Show all
-					{/if} {#if !isTouchscreen}[<span class=key-identifier>Spacebar</span>]{/if}
-				</button>
-				<button on:click=hint() disabled={answerIsFullyVisible || !chunkable}>
-					Hint {#if !isTouchscreen}[<span class=key-identifier>h</span>]{/if}
-				</button>
-			</div>
-		{/if}
+		<div class="faint footer-center">
+			<button on:click=showLess() disabled={visibleWords === 0}>
+				Show less {#if !isTouchscreen}[<span class="key-identifier">,</span>]{/if}
+			</button>
+			<button on:click=showMore() disabled={answerIsFullyVisible}>
+				Show more {#if !isTouchscreen}[<span class="key-identifier">.</span>]{/if}
+			</button>
+			<br>
+			<button on:click=advance()>
+				{#if answerIsFullyVisible}
+					Next card
+				{:else}
+					Show all
+				{/if} {#if !isTouchscreen}[<span class=key-identifier>Spacebar</span>]{/if}
+			</button>
+			<button on:click=hint() disabled={answerIsFullyVisible || !chunkable}>
+				Hint {#if !isTouchscreen}[<span class=key-identifier>h</span>]{/if}
+			</button>
+		</div>
 		<div class="faint footer-right nowrap">
-			{#if sheet.rows.length !== 0}
-				{currentQuestionPosition + 1} / {cardsInSheet}
-			{/if}
+			{currentQuestionPosition + 1} / {cardsInSheet}
 		</div>
 	</footer>
 	
 </div>
 
 <style>
-
 [data-hidden=true] {
 	visibility: hidden;
 }
-
 .key-identifier {
 	font-family: monospace;
 }
-
 .faint {
 	color: var(--lightBlack);
 }
-
 .box {
 	padding: 32px;
 	margin: 32px 8px;
 	border-radius: 5px;
 	box-shadow: 0 0 8px 4px var(--lightGray);
 }
-
 footer {
 	display: flex;
 	justify-content: space-between;
 }
-
 button {
 	margin: 4px;
 	width: 13rem;
@@ -104,31 +90,25 @@ button {
 :global([data-is-touchscreen=true]) button {
 	width: 10rem;
 }
-
 @media (max-width: 600px) {
 	footer {
 		flex-direction: column;
 	}
 	footer * {
 		flex-basis: 1.8rem;
-
 		justify-content: center;
 	}
-
 	.footer-left {
 		order: 1;
 	}
-
 	button {
 		margin: 4px;
 	}
-
 	.box {
 		padding: 16px;
 		margin: 16px 8px;
 	}
 }
-
 footer * {
 	text-align: center;
 }
@@ -137,20 +117,15 @@ footer * {
 }
 .footer-left, .footer-right {
 	flex-basis: 64px;
-
 	display: flex;
 	align-items: center;
 }
-
 </style>
 
 <script>
-
 import isTouchscreen from 'lib/is-touchscreen.js'
 import chunkPhrase from 'lib/phrase-chunker.js'
-
 const CHUNK_BARRIERS = new Set([ `,`, `.`, `;`, `:`, `"`, `'`, `’`, `”`, '?' ])
-
 export default {
 	data() {
 		return {
@@ -165,7 +140,6 @@ export default {
 	computed: {
 		currentCard: ({ currentQuestionPosition, sheet }) => {
 			const row = sheet.rows[currentQuestionPosition]
-
 			return row
 				? {
 					prompt: row[0].trim(),
@@ -177,10 +151,7 @@ export default {
 		displayHeader: ({ sheet, workbook }) => sheet.name === `Sheet1`
 			? workbook.name
 			: `${ workbook.name } · ${ sheet.name }`,
-		answerWords: ({ currentCard }) => {
-			if (currentCard !== null) return currentCard.answer.split(/\s+/g)
-			else return [];
-		},
+		answerWords: ({ currentCard }) => currentCard.answer.split(/\s+/g),
 		chunkable: ({ answerWords }) => answerWords.length >= 20,
 		phraseChunks: ({ chunkable, answerWords }) => chunkable
 			? chunkPhrase({
@@ -213,7 +184,6 @@ export default {
 		goToNextCard() {
 			const { currentQuestionPosition, cardsInSheet } = this.get()
 			const incrementedPosition = currentQuestionPosition + 1
-
 			this.set({
 				currentQuestionPosition: incrementedPosition >= cardsInSheet ? 0 : incrementedPosition,
 				answerIsFullyVisible: false,
@@ -234,7 +204,6 @@ export default {
 		},
 		showMore() {
 			const { wordsAreLeftToDisplay, visibleChunkIndex } = this.get()
-
 			if (wordsAreLeftToDisplay) {
 				this.set({
 					hintWordCount: 0,
@@ -245,7 +214,6 @@ export default {
 		},
 		showLess() {
 			const { visibleChunkIndex, hintWordCount, answerIsFullyVisible, phraseChunks } = this.get()
-
 			if (answerIsFullyVisible) {
 				this.set({
 					hintWordCount: 0,
@@ -265,12 +233,10 @@ export default {
 		},
 		hint() {
 			const { answerIsFullyVisible, chunkable } = this.get()
-
 			if (!answerIsFullyVisible && chunkable) {
 				this.set({
 					hintWordCount: this.get().hintWordCount + 1,
 				})
-
 				this.updateIfAnswerIsFullyVisible()
 			}
 		},

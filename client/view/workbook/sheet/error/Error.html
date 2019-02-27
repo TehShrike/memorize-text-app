@@ -1,0 +1,62 @@
+<div class="container">
+
+
+	<header>
+		<h2>Error</h2>
+	</header>
+
+
+	<main>
+		We couldn't load any rows from this sheet!  Make sure it has rows, and there aren't any blank rows.
+		<div class="try-again">
+				<a href="{ asr.makePath('workbook', { key: key }) }">Try Again</a>
+				•
+				<a href="https://docs.google.com/spreadsheets/d/{key}" target="_blank">Edit Sheet</a>
+		</div>
+	</main>
+
+
+	<footer>
+		<a
+			href="{ asr.makePath('index') }"
+			class=footer-left
+		>
+			Home
+		</a>
+		<a
+			href="{ asr.makePath('workbook.info', { key: key }) }"
+			class="footer-right">
+			Sheet&nbsp;Info
+		</a>
+	</footer>
+</div>
+
+<style>
+.try-again {
+	padding-top: 1rem;
+	text-align: center;
+}
+
+footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+@media (max-width: 600px) {
+	footer {
+		flex-direction: column;
+	}
+	footer > * {
+		flex-basis: 1.8rem;
+	}
+}
+
+footer > * {
+	text-align: center;
+
+	display: flex;
+}
+.footer-left, .footer-right {
+	flex-basis: 64px;
+}
+</style>
