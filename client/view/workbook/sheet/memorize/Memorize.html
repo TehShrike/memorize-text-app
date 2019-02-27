@@ -174,9 +174,9 @@ export default {
 		phraseChunks: ({ chunkable, answerWords }) => chunkable
 			? chunkPhrase({
 				words: answerWords,
-				chunkMin: 4,
+				chunkMin: 2,
 				chunkMax: 14,
-				chunkIdeal: 8,
+				chunkIdeal: 3,
 				chunkBarriers: CHUNK_BARRIERS,
 			})
 			: answerWords.map((_, index) => index),
