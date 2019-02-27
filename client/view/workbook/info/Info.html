@@ -5,36 +5,37 @@
 	</header>
 
 	<main>
-		<p>This workbook has { workbook.sheets.length } sheet{#if workbook.sheets.length !== 1}s{/if}.</p>
-
-		<p>
-			{#if workbook.sheets.length == 0}
-				There are no sheets in this workbook.
-			{:elseif workbook.sheets.length == 1}
-				{workbook.sheets[0].name}.
+			{#if forgotten}
+            	{workbook.name} has been deleted.<br>
+            	<button on:click="restoreWorkbook(key, workbook)">Restore</button>
 			{:else}
-				{#each workbook.sheets as sheet}
-					{#if sheet.id == secondToLastSheetId }
-						<a href="{ asr.makePath('workbook.sheet.memorize', { key, sheetId: sheet.id }) }">{sheet.name}</a> and&nbsp;
-					{:elseif sheet.id == lastSheetId}
-						<a href="{ asr.makePath('workbook.sheet.memorize', { key, sheetId: sheet.id }) }">{sheet.name}</a>.
-					{:else}
-						<a href="{ asr.makePath('workbook.sheet.memorize', { key, sheetId: sheet.id }) }">{sheet.name}</a> ,&nbsp;
-					{/if}
-				{:else}
-					This workbook is empty.
-				{/each}
-			{/if}
-		</p>
-		
-		<p>
-			<a href="https://docs.google.com/spreadsheets/d/{key}" target="_blank">View workbook on Google Sheets</a>
-		</p>
+			
+			<p>This workbook has { workbook.sheets.length } sheet{#if workbook.sheets.length !== 1}s{/if}.</p>
 
-        {#if forgotten}
-            {workbook.name} has been deleted.<br>
-            <button on:click="restoreWorkbook(key, workbook)">Restore</button>
-        {:else}
+			<p>
+				{#if workbook.sheets.length == 0}
+					There are no sheets in this workbook.
+				{:elseif workbook.sheets.length == 1}
+					<a href="{ asr.makePath('workbook.sheet.memorize', { key, sheetId: workbook.sheets[0].id }) }">{workbook.sheets[0].name}</a>
+				{:else}
+					{#each workbook.sheets as sheet}
+						{#if sheet.id == secondToLastSheetId }
+							<a href="{ asr.makePath('workbook.sheet.memorize', { key, sheetId: sheet.id }) }">{sheet.name}</a> and&nbsp;
+						{:elseif sheet.id == lastSheetId}
+							<a href="{ asr.makePath('workbook.sheet.memorize', { key, sheetId: sheet.id }) }">{sheet.name}</a>.
+						{:else}
+							<a href="{ asr.makePath('workbook.sheet.memorize', { key, sheetId: sheet.id }) }">{sheet.name}</a> ,&nbsp;
+						{/if}
+					{:else}
+						This workbook is empty.
+					{/each}
+				{/if}
+			</p>
+		
+			<p>
+				<a href="https://docs.google.com/spreadsheets/d/{key}" target="_blank">View workbook on Google Sheets</a>
+			</p>
+
             <button style="background-color: var(--red);" on:click="forgetAndPrepareForUndo(key)">Remove "{workbook.name}" from the home page</button>
         {/if}
     </main>
@@ -56,11 +57,11 @@
 			}
 		},
 		computed: {
-			lastSheetId: ({workbook}) => {
+			lastSheetId: ({ workbook }) => {
 				return workbook.sheets[workbook.sheets.length - 1].id
 			},
-			secondToLastSheetId: ({workbook}) => {
-				return workbook.sheets[workbook.sheets.length - 2].id
+			secondToLastSheetId: ({ workbook }) => {
+				return workbook.sheets.length <= 1 ? null : workbook.sheets[workbook.sheets.length - 2].id;
 			}
 		},
 		methods: {
