@@ -6,8 +6,8 @@
 
 	<main>
 		{#if forgotten}
-            {workbook.name} has been deleted.<br>
-            <button on:click="restoreWorkbook(key, workbook)">Restore</button>
+			{workbook.name} has been deleted.<br>
+			<button on:click="restoreWorkbook(key, workbook)">Restore</button>
 		{:else}
 			
 			<p>This workbook has { workbook.sheets.length } sheet{#if workbook.sheets.length !== 1}s{/if}.</p>
@@ -36,15 +36,15 @@
 				<a href="https://docs.google.com/spreadsheets/d/{key}" target="_blank">View workbook on Google Sheets</a>
 			</p>
 
-            <button style="background-color: var(--red);" on:click="forgetAndPrepareForUndo(key)">Remove "{workbook.name}" from the home page</button>
+			<button style="background-color: var(--red);" on:click="forgetAndPrepareForUndo(key)">Remove "{workbook.name}" from the home page</button>
         {/if}
     </main>
 
-    <footer>
-        <div class=footer-left>
-            <a href={ asr.makePath('index') }>Home</a>
-        </div>
-    </footer>
+	<footer>
+		<div class=footer-left>
+			<a href={ asr.makePath('index') }>Home</a>
+		</div>
+	</footer>
 </div>
 
 
