@@ -1,8 +1,6 @@
 <svelte:window on:keydown="keydown(event)" />
 
 <div class=container>
-
-	
 	<main>
 		<h1 style="text-align: center;">{displayHeader}</h1>
 
@@ -32,7 +30,6 @@
 		{/if}
 	</main>
 
-
 	<footer>
 		<div class=footer-left>
 			<a href={ asr.makePath('index') }>Home</a>
@@ -60,7 +57,7 @@
 			{currentQuestionPosition + 1} / {cardsInSheet}
 		</div>
 	</footer>
-	
+
 </div>
 
 <style>
@@ -125,7 +122,11 @@ footer * {
 <script>
 import isTouchscreen from 'lib/is-touchscreen.js'
 import chunkPhrase from 'lib/phrase-chunker.js'
-const CHUNK_BARRIERS = new Set([ `,`, `.`, `;`, `:`, `"`, `'`, `’`, `”`, '?' ])
+
+
+const CHUNK_BARRIERS = new Set([ `,`, `.`, `;`, `:`, `"`, `'`, `’`, `”`, `?` ])
+
+
 export default {
 	data() {
 		return {
@@ -156,9 +157,9 @@ export default {
 		phraseChunks: ({ chunkable, answerWords }) => chunkable
 			? chunkPhrase({
 				words: answerWords,
-				chunkMin: 4,
+				chunkMin: 2,
 				chunkMax: 14,
-				chunkIdeal: 8,
+				chunkIdeal: 3,
 				chunkBarriers: CHUNK_BARRIERS,
 			})
 			: answerWords.map((_, index) => index),

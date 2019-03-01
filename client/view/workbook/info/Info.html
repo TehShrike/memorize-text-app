@@ -1,0 +1,43 @@
+<div class="container">
+
+    <header>
+        <h2>{workbook.name}</h2>
+    </header>
+
+    <main>
+        {#if forgotten}
+            {workbook.name} has been deleted.<br>
+            <button on:click="restoreWorkbook(key, workbook)">Restore</button>
+        {:else}
+            <button style="background-color: var(--red);" on:click="forgetAndPrepareForUndo(key)">Remove "{workbook.name}" from the home page</button>
+        {/if}
+    </main>
+
+    <footer>
+        <div class=footer-left>
+            <a href={ asr.makePath('index') }>Home</a>
+        </div>
+    </footer>
+</div>
+
+
+
+<script>
+export default {
+	data() {
+		return {
+			forgotten: false,
+		}
+	},
+	methods: {
+		async forgetAndPrepareForUndo(key) {
+			this.mediatorCall(`forgetWorkbook`, key)
+			this.set({ forgotten: true })
+		},
+		restoreWorkbook(key, workbook) {
+			this.set({ forgotten: false })
+			this.mediatorCall(`rememberWorkbook`, key, workbook.name)
+		},
+	},
+}
+</script>
