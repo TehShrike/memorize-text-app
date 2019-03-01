@@ -5,10 +5,10 @@
 	</header>
 
 	<main>
-			{#if forgotten}
-            	{workbook.name} has been deleted.<br>
-            	<button on:click="restoreWorkbook(key, workbook)">Restore</button>
-			{:else}
+		{#if forgotten}
+            {workbook.name} has been deleted.<br>
+            <button on:click="restoreWorkbook(key, workbook)">Restore</button>
+		{:else}
 			
 			<p>This workbook has { workbook.sheets.length } sheet{#if workbook.sheets.length !== 1}s{/if}.</p>
 
