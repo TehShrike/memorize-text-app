@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="content">
-		<h1>{workbook.name}</h1>
+		<h1 class="center">{workbook.name}</h1>
 
 		{#if workbook.sheets.length === 1}
 			<p style="text-align: center">
@@ -18,3 +18,8 @@
 		{/if}
 	</div>
 </div>
+<style>
+	.center {
+		text-align: center;
+	}
+</style>
