@@ -139,6 +139,7 @@ export default {
 	computed: {
 		currentCard: ({ currentQuestionPosition, sheet }) => {
 			const row = sheet.rows[currentQuestionPosition]
+
 			return row
 				? {
 					prompt: row[0].trim(),
@@ -183,6 +184,7 @@ export default {
 		goToNextCard() {
 			const { currentQuestionPosition, cardsInSheet } = this.get()
 			const incrementedPosition = currentQuestionPosition + 1
+
 			this.set({
 				currentQuestionPosition: incrementedPosition >= cardsInSheet ? 0 : incrementedPosition,
 				answerIsFullyVisible: false,
@@ -203,6 +205,7 @@ export default {
 		},
 		showMore() {
 			const { wordsAreLeftToDisplay, visibleChunkIndex } = this.get()
+
 			if (wordsAreLeftToDisplay) {
 				this.set({
 					hintWordCount: 0,
@@ -213,6 +216,7 @@ export default {
 		},
 		showLess() {
 			const { visibleChunkIndex, hintWordCount, answerIsFullyVisible, phraseChunks } = this.get()
+
 			if (answerIsFullyVisible) {
 				this.set({
 					hintWordCount: 0,
@@ -232,10 +236,12 @@ export default {
 		},
 		hint() {
 			const { answerIsFullyVisible, chunkable } = this.get()
+
 			if (!answerIsFullyVisible && chunkable) {
 				this.set({
 					hintWordCount: this.get().hintWordCount + 1,
 				})
+
 				this.updateIfAnswerIsFullyVisible()
 			}
 		},
