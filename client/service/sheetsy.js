@@ -1,5 +1,5 @@
 import sheetsy from 'sheetsy'
-import callMemoize from '../lib/call-memorize';
+import callMemoize from '../lib/memorize';
 
 export default mediator => {
 	const memoizedGetSheet = callMemoize(sheetsy.getSheet);

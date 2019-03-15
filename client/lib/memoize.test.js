@@ -1,4 +1,4 @@
-import memoize from './call-memoize.js'
+import memoize from './memoize.js'
 import test from 'zora'
 
 test('Returns the old value if the arguments are the same', t => {
