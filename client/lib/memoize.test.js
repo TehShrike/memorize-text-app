@@ -39,3 +39,12 @@ test('Calls the function again with confusing arguments', t => {
 	memoizedFunction('ab,c,1', '23')
 	t.equal(functionCallCount, 3)
 })
+
+test('Calls the function with the same arguments, but with an odd ball in the middle', t => {
+	let functionCallCount = 0;
+	const memoizedFunction = memoize( () => functionCallCount += 1);
+	memoizedFunction('a', 'b', 'c');
+	memoizedFunction('1', '2', '3');
+	memoizedFunction('a', 'b', 'c');
+	t.equal(functionCallCount, 2);
+})
