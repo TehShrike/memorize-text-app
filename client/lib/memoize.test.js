@@ -34,8 +34,8 @@ test('Calls the function again after 1.01 seconds', async t => {
 test('Calls the function again with confusing arguments', t => {
 	let functionCallCount = 0
 	const memoizedFunction = memoize(() => functionCallCount += 1)
-	memoizedFunction('abc', '123')
-	memoizedFunction('ab', 'c123')
-	memoizedFunction('abc1', '23')
+	memoizedFunction('ab,c', '1,23')
+	memoizedFunction('ab', 'c,1,23')
+	memoizedFunction('ab,c,1', '23')
 	t.equal(functionCallCount, 3)
 })
