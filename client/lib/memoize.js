@@ -5,9 +5,9 @@ export default (fn) => {
 	let lastCallTime = 0;
 	return (...args) => {
 		const thisCallArgs = args.map(arg => arg.replace(/,/g, '|comma|')).join();
-		if ((thisCallArgs === lastCallArgs && lastCallTime + recoveryLength >= new Date().getTime()) || storedArgsMatch) {
+		if (thisCallArgs === lastCallArgs && lastCallTime + recoveryLength >= new Date().getTime()) {
 			return lastCallResult;
-		}else{
+		} else {
 			lastCallResult = fn(...args);
 			lastCallArgs = thisCallArgs;
 			lastCallTime = new Date().getTime();
