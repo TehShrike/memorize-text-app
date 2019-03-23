@@ -55,10 +55,10 @@
         computed: {
             sheetSentenceSeparator: workbook => index => {
                 const work = workbook.workbook;
-                if (index === work.sheets.length - 1) {
-                    return '.'
-                } else if (index === work.sheets.length - 2) {
-                    return ', and '
+                if (index === work.sheets.length - 1) return '.';
+                else if (index === work.sheets.length - 2) {
+                    if (work.sheets.length >= 3) return ', and ';
+                    else return ' and ';
                 }
 
                 return ', '
