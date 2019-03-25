@@ -1,11 +1,11 @@
 <div class="container">
 
-    <header>
-        <h2>{workbook.name}</h2>
-    </header>
+	<header>
+		<h2>{workbook.name}</h2>
+	</header>
 
-    <main>
-        {#if forgotten}
+	<main>
+		{#if forgotten}
 			{workbook.name} has been deleted.<br>
 			<button on:click="restoreWorkbook(key, workbook)">Restore</button>
 		{:else}
@@ -26,15 +26,15 @@
 		
 			<p>
                 <a
-                    href="https://docs.google.com/spreadsheets/d/{key}"
-                    target="_blank"
-				    rel=external
-                >View workbook on Google Sheets</a>
+					href="https://docs.google.com/spreadsheets/d/{key}"
+                	target="_blank"
+					rel=external
+				>View workbook on Google Sheets</a>
 			</p>
 
 			<button style="background-color: var(--red);" on:click="forgetAndPrepareForUndo(key)">Remove "{workbook.name}" from the home page</button>
-        {/if}
-    </main>
+		{/if}
+	</main>
 
 	<footer>
 		<div class=footer-left>
@@ -46,33 +46,33 @@
 
 
 <script>
-    export default {
-        data() {
-            return {
-                forgotten: false
-            }
-        },
-        computed: {
-            sheetSentenceSeparator: workbook => index => {
-                const work = workbook.workbook;
-                if (index === work.sheets.length - 1) return '.';
-                else if (index === work.sheets.length - 2) {
-                    if (work.sheets.length >= 3) return ', and ';
-                    else return ' and ';
-                }
+	export default {
+		data() {
+			return {
+				forgotten: false
+			}
+		},
+		computed: {
+			sheetSentenceSeparator: workbook => index => {
+				const work = workbook.workbook;
+				if (index === work.sheets.length - 1) return '.';
+				else if (index === work.sheets.length - 2) {
+					if (work.sheets.length >= 3) return ', and ';
+					else return ' and ';
+				}
 
-                return ', '
-            }
-        },
-        methods: {
-            async forgetAndPrepareForUndo(key) {
-                this.mediatorCall(`forgetWorkbook`, key)
-                this.set({ forgotten: true })
-            },
-            restoreWorkbook(key, workbook) {
-                this.set({ forgotten: false })
-                this.mediatorCall(`rememberWorkbook`, key, workbook.name)
-            }
-        },
-    }
+				return ', '
+			}
+		},
+		methods: {
+			async forgetAndPrepareForUndo(key) {
+				this.mediatorCall(`forgetWorkbook`, key)
+				this.set({ forgotten: true })
+			},
+			restoreWorkbook(key, workbook) {
+				this.set({ forgotten: false })
+				this.mediatorCall(`rememberWorkbook`, key, workbook.name)
+			}
+		},
+	}
 </script>
