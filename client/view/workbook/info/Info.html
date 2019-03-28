@@ -57,8 +57,9 @@
 				const work = workbook.workbook;
 				if (index === work.sheets.length - 1) return '.';
 				else if (index === work.sheets.length - 2) {
-					if (work.sheets.length >= 3) return ', and ';
-					else return ' and ';
+					return work.sheets.length >= 3
+    					? ', and '
+    					: ' and '
 				}
 
 				return ', '
