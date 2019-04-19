@@ -8,7 +8,7 @@ test('Chunks a dumb demo sentence with one word at the end', t => {
 		chunkMin: 4,
 		chunkMax: 14,
 		chunkIdeal: 8,
-		chunkBarriers: new Set([ '.' ]),
+		chunkBarriers: [ '.' ],
 	})
 	t.deepEqual(chunks, [ 0, 9, 10 ])
 })
@@ -20,7 +20,7 @@ test('Chunks a dumb demo sentence with two words at the end', t => {
 		chunkMin: 4,
 		chunkMax: 14,
 		chunkIdeal: 8,
-		chunkBarriers: new Set([ '.' ]),
+		chunkBarriers: [ '.' ],
 	})
 	t.deepEqual(chunks, [ 0, 9, 11 ])
 })
@@ -32,7 +32,7 @@ test('Chunks a dumb demo sentence with three words at the end', t => {
 		chunkMin: 4,
 		chunkMax: 14,
 		chunkIdeal: 8,
-		chunkBarriers: new Set([ '.' ]),
+		chunkBarriers: [ '.' ],
 	})
 	t.deepEqual(chunks, [ 0, 9, 12 ])
 })
@@ -44,7 +44,7 @@ test('Chunks a smart tricky sentence with challenging punctuation', t => {
 		chunkMin: 2,
 		chunkMax: 14,
 		chunkIdeal: 3,
-		chunkBarriers: new Set([ ';', ',' ]),
+		chunkBarriers: [ ';', ',' ],
 	})
 	t.deepEqual(chunks, [ 0, 7, 11 ])
 })
