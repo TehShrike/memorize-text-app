@@ -36,3 +36,15 @@ test('Chunks a dumb demo sentence with three words at the end', t => {
 	})
 	t.deepEqual(chunks, [ 0, 9, 12 ])
 })
+
+test('Chunks a smart tricky sentence with challenging punctuation', t => {
+	const words = "I feel pretty good right now, verily; everything is awesome".split(' ');
+	const chunks = chunkify({
+		words,
+		chunkMin: 2,
+		chunkMax: 14,
+		chunkIdeal: 3,
+		chunkBarriers: new Set([ ';', ',' ]),
+	})
+	t.deepEqual(chunks, [ 0, 7, 11 ])
+})
