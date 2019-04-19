@@ -48,3 +48,31 @@ test('Chunks a smart tricky sentence with challenging punctuation', t => {
 	})
 	t.deepEqual(chunks, [ 0, 7, 10 ])
 })
+
+test('Chunks text with a small chunkMax', t => {
+	const words = `
+	Hello there!  How are you today? WAIT... I nearly forgot to introduce myself to you!  My name is Elijah, and yes; I am a programmer.
+	`.trim().split(/\s+/g);
+	const chunks = chunkify({
+		words,
+		chunkMin: 2,
+		chunkMax: 7,
+		chunkIdeal: 3,
+		chunkBarriers: [ '...', '.', '!', ';', ',' ],
+	})
+	t.deepEqual(chunks, [ 0, 2, 7, 10, 15, 21, 25 ])
+})
+
+test('Chunks text with a large chunkMax', t => {
+	const words = `
+	Hello there!  How are you today? WAIT... I nearly forgot to introduce myself to you!  My name is Elijah, and yes; I am a programmer.
+	`.trim().split(/\s+/g);
+	const chunks = chunkify({
+		words,
+		chunkMin: 2,
+		chunkMax: 14,
+		chunkIdeal: 3,
+		chunkBarriers: [ '...', '.', '!', ';', ',' ],
+	})
+	t.deepEqual(chunks, [ 0, 7, 15, 25 ])
+})
