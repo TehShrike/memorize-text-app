@@ -46,5 +46,5 @@ test('Chunks a smart tricky sentence with challenging punctuation', t => {
 		chunkIdeal: 3,
 		chunkBarriers: [ ';', ',' ],
 	})
-	t.deepEqual(chunks, [ 0, 7, 11 ])
+	t.deepEqual(chunks, [ 0, 7, 10 ])
 })
