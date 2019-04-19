@@ -1,6 +1,9 @@
-const isPotentialChunkWord = (word, chunkBarriers) => chunkBarriers.has(word[word.length - 1])
+const isPotentialChunkWord = (word, chunkBarriersSet) => chunkBarriersSet.has(word[word.length - 1])
 
 export default ({ words, chunkMin, chunkMax, chunkIdeal, chunkBarriers }) => {
+
+	const chunkBarriersSet = new Set(chunkBarriers);
+
 	const chunks = [ 0 ]
 	let lastWordNumber = 0
 	let bestChunkSizeSoFar = null
@@ -20,7 +23,7 @@ export default ({ words, chunkMin, chunkMax, chunkIdeal, chunkBarriers }) => {
 			addChunk(bestChunkSizeSoFar || chunkIdeal)
 		} else if (index === words.length - 1) {
 			addChunk(currentChunkSize)
-		} else if (isPotentialChunkWord(word, chunkBarriers)) {
+		} else if (isPotentialChunkWord(word, chunkBarriersSet)) {
 			if (currentChunkSize >= chunkIdeal) {
 				addChunk(currentChunkSize)
 			} else if (currentChunkSize >= chunkMin) {
