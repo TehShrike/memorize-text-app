@@ -19,8 +19,6 @@ export default ({ words, chunkMin, chunkMax, chunkIdeal, chunkBarriers }) => {
 		const word = words[index]
 		const currentChunkSize = index - lastWordNumber + 1
 
-		console.log("Index - " + index);
-
 		if (currentChunkSize >= chunkMax) {
 			if (scale >= chunkBarriers.length - 1) addChunk(bestChunkSizeSoFar || chunkIdeal);
 			else {
