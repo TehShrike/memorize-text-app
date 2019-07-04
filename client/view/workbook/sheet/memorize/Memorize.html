@@ -61,31 +61,25 @@
 </div>
 
 <style>
-
 [data-hidden=true] {
 	visibility: hidden;
 }
-
 .key-identifier {
 	font-family: monospace;
 }
-
 .faint {
 	color: var(--lightBlack);
 }
-
 .box {
 	padding: 32px;
 	margin: 32px 8px;
 	border-radius: 5px;
 	box-shadow: 0 0 8px 4px var(--lightGray);
 }
-
 footer {
 	display: flex;
 	justify-content: space-between;
 }
-
 button {
 	margin: 4px;
 	width: 13rem;
@@ -93,31 +87,25 @@ button {
 :global([data-is-touchscreen=true]) button {
 	width: 10rem;
 }
-
 @media (max-width: 600px) {
 	footer {
 		flex-direction: column;
 	}
 	footer * {
 		flex-basis: 1.8rem;
-
 		justify-content: center;
 	}
-
 	.footer-left {
 		order: 1;
 	}
-
 	button {
 		margin: 4px;
 	}
-
 	.box {
 		padding: 16px;
 		margin: 16px 8px;
 	}
 }
-
 footer * {
 	text-align: center;
 }
@@ -126,15 +114,12 @@ footer * {
 }
 .footer-left, .footer-right {
 	flex-basis: 64px;
-
 	display: flex;
 	align-items: center;
 }
-
 </style>
 
 <script>
-
 import isTouchscreen from 'lib/is-touchscreen.js'
 import chunkPhrase from 'lib/phrase-chunker.js'
 
