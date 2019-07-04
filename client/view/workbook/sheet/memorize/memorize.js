@@ -10,12 +10,12 @@ export default mediator => ({
 		if (sheet.rows.length == 0) {
 			return Promise.reject({
 				redirectTo: {
-					name: 'workbook.sheet.error',
+					name: `workbook.sheet.error`,
 					params: {
 						key,
-						sheetId
-					}
-				}
+						sheetId,
+					},
+				},
 			})
 		}
 	},
