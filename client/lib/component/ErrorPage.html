@@ -1,0 +1,64 @@
+<div class="container">
+
+	<header>
+		<h2>Error</h2>
+	</header>
+
+	<main>
+		<slot></slot>
+		{#if key}
+			<div class="try-again">
+					<a href="{ asr.makePath('workbook', { key }) }">Try Again</a>
+					•
+					<a href="https://docs.google.com/spreadsheets/d/{key}" target="_blank">Edit Sheet</a>
+			</div>
+		{/if}
+	</main>
+
+	<footer>
+		<a
+			href="{ asr.makePath('index') }"
+			class=footer-left
+		>
+			Home
+		</a>
+		{#if key}
+			<a
+				href="{ asr.makePath('workbook.info', { key }) }"
+				class="footer-right"
+			>
+				Sheet Info
+			</a>
+		{/if}
+	</footer>
+</div>
+
+<style>
+.try-again {
+	padding-top: 1rem;
+	text-align: center;
+}
+
+footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+@media (max-width: 600px) {
+	footer {
+		flex-direction: column;
+	}
+	footer > * {
+		flex-basis: 1.8rem;
+	}
+}
+
+footer > * {
+	text-align: center;
+
+	display: flex;
+}
+.footer-left, .footer-right {
+	flex-basis: 100px;
+}
+</style>

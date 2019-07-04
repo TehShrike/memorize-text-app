@@ -1,8 +1,9 @@
 import ErrorPage from './Error.html'
 
 export default mediator => ({
-	name: `workbook.sheet.error`,
-	route: `error-page`,
+	name: `error`,
+	route: `error`,
+	querystringParams: [ `key` ],
 	template: ErrorPage,
 	async resolve(data, params) {
 		return params
