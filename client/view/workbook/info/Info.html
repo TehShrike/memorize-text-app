@@ -10,7 +10,7 @@
 			<button on:click="restoreWorkbook(key, workbook)">Restore</button>
 		{:else}
 
-			<p>This workbook has { workbook.sheets.length } sheet{#if workbook.sheets.length !== 1}s{/if}.</p>
+			<p>This workbook has { workbook.sheets.length } sheet{#if workbook.sheets.length !== 1}s{/if}:</p>
 
 			<p>
 				{#if workbook.sheets.length == 1}
@@ -18,8 +18,6 @@
 				{:else}
 					{#each workbook.sheets as sheet, index}
 						<a href="{ asr.makePath('workbook.sheet.memorize', { key, sheetId: sheet.id }) }">{sheet.name}</a>{sheetSentenceSeparator(index)}
-					{:else}
-						This workbook is empty.
 					{/each}
 				{/if}
 			</p>
