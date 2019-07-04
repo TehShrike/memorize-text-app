@@ -9,7 +9,7 @@
 			{workbook.name} has been deleted.<br>
 			<button on:click="restoreWorkbook(key, workbook)">Restore</button>
 		{:else}
-			
+
 			<p>This workbook has { workbook.sheets.length } sheet{#if workbook.sheets.length !== 1}s{/if}.</p>
 
 			<p>
@@ -17,17 +17,17 @@
 					<a href="{ asr.makePath('workbook.sheet.memorize', { key, sheetId: workbook.sheets[0].id }) }">{workbook.sheets[0].name}</a>
 				{:else}
 					{#each workbook.sheets as sheet, index}
-                        <a href="{ asr.makePath('workbook.sheet.memorize', { key, sheetId: sheet.id }) }">{sheet.name}</a>{sheetSentenceSeparator(index)}
+						<a href="{ asr.makePath('workbook.sheet.memorize', { key, sheetId: sheet.id }) }">{sheet.name}</a>{sheetSentenceSeparator(index)}
 					{:else}
 						This workbook is empty.
 					{/each}
 				{/if}
 			</p>
-		
+
 			<p>
-                <a
+				<a
 					href="https://docs.google.com/spreadsheets/d/{key}"
-                	target="_blank"
+					target="_blank"
 					rel=external
 				>View workbook on Google Sheets</a>
 			</p>
@@ -44,26 +44,26 @@
 </div>
 
 
-
 <script>
 	export default {
 		data() {
 			return {
-				forgotten: false
+				forgotten: false,
 			}
 		},
 		computed: {
 			sheetSentenceSeparator: workbook => index => {
-				const work = workbook.workbook;
-				if (index === work.sheets.length - 1) return '.';
-				else if (index === work.sheets.length - 2) {
+				const work = workbook.workbook
+				if (index === work.sheets.length - 1) {
+					return `.`
+				} else if (index === work.sheets.length - 2) {
 					return work.sheets.length >= 3
-    					? ', and '
-    					: ' and '
+						? `, and `
+						: ` and `
 				}
 
-				return ', '
-			}
+				return `, `
+			},
 		},
 		methods: {
 			async forgetAndPrepareForUndo(key) {
@@ -73,7 +73,7 @@
 			restoreWorkbook(key, workbook) {
 				this.set({ forgotten: false })
 				this.mediatorCall(`rememberWorkbook`, key, workbook.name)
-			}
+			},
 		},
 	}
 </script>
