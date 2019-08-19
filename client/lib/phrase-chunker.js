@@ -1,8 +1,7 @@
-const isPotentialChunkWord = (word, chunkBarriers, scale) => chunkBarriers[scale] === word[word.length - 1];
+const isPotentialChunkWord = (word, chunkBarriers, scale) => chunkBarriers[scale] === word[word.length - 1]
 
 export default ({ words, chunkMin, chunkMax, chunkIdeal, chunkBarriers }) => {
-
-	const chunks = [0]
+	const chunks = [ 0 ]
 	let lastWordNumber = 0
 	let bestChunkSizeSoFar = null
 	let index = 0
@@ -20,10 +19,11 @@ export default ({ words, chunkMin, chunkMax, chunkIdeal, chunkBarriers }) => {
 		const currentChunkSize = index - lastWordNumber + 1
 
 		if (currentChunkSize >= chunkMax) {
-			if (scale >= chunkBarriers.length - 1) addChunk(bestChunkSizeSoFar || chunkIdeal);
-			else {
-				scale++;
-				index = lastWordNumber;
+			if (scale >= chunkBarriers.length - 1) {
+				addChunk(bestChunkSizeSoFar || chunkIdeal)
+			} else {
+				scale++
+				index = lastWordNumber
 			}
 		} else if (index === words.length - 1) {
 			addChunk(currentChunkSize)
