@@ -1,6 +1,7 @@
 <script>
 	import isTouchscreen from 'lib/is-touchscreen.js';
 	import chunkPhrase from 'lib/phrase-chunker.js';
+	import { tick } from 'svelte';
 
 	const CHUNK_BARRIERS = new Set([`,`, `.`, `;`, `:`, `"`, `'`, `’`, `”`, `?`]);
 
@@ -53,7 +54,8 @@
 
 	$: wordsAreLeftToDisplay = !answerIsFullyVisible && visibleWords < answerWords.length;
 
-	function updateIfAnswerIsFullyVisible() {
+	async function updateIfAnswerIsFullyVisible() {
+		await tick();
 		if (!wordsAreLeftToDisplay) answerIsFullyVisible = true;
 	}
 	function goToNextCard() {
