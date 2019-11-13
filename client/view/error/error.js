@@ -3,7 +3,7 @@ import ErrorPage from './Error.svelte';
 export default mediator => ({
 	name: `error`,
 	route: `error`,
-	querystringParams: [`key`],
+	querystringParameters: [`key`],
 	template: ErrorPage,
 	async resolve(data, params) {
 		return params;
