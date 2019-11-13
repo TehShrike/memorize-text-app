@@ -204,34 +204,26 @@
 			<button on:click={showLess} disabled={visibleWords === 0}>
 				Show less
 				{#if !isTouchscreen}
-					[
-					<span class="key-identifier">,</span>
-					]
+					[<span class="key-identifier">,</span>]
 				{/if}
 			</button>
 			<button on:click={showMore} disabled={answerIsFullyVisible}>
 				Show more
 				{#if !isTouchscreen}
-					[
-					<span class="key-identifier">.</span>
-					]
+					[<span class="key-identifier">.</span>]
 				{/if}
 			</button>
 			<br />
 			<button on:click={advance}>
 				{#if answerIsFullyVisible}Next card{:else}Show all{/if}
 				{#if !isTouchscreen}
-					[
-					<span class="key-identifier">Spacebar</span>
-					]
+					[<span class="key-identifier">Spacebar</span>]
 				{/if}
 			</button>
 			<button on:click={hint} disabled={answerIsFullyVisible || !chunkable}>
 				Hint
 				{#if !isTouchscreen}
-					[
-					<span class="key-identifier">h</span>
-					]
+					[<span class="key-identifier">h</span>]
 				{/if}
 			</button>
 		</div>
