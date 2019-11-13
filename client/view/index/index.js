@@ -1,4 +1,4 @@
-import Index from './Index.html'
+import Index from './Index.svelte';
 
 export default mediator => ({
 	name: `index`,
@@ -7,6 +7,6 @@ export default mediator => ({
 	async resolve() {
 		return {
 			seenWorkbooks: await mediator.call(`getAllSeenWorkbooks`),
-		}
+		};
 	},
-})
+});

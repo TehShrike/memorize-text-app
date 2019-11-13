@@ -1,0 +1,15 @@
+<script>
+	export let route;
+	export let asr;
+</script>
+
+<h1>Page not found</h1>
+{#if route}
+	<div>
+		Can't match route:
+		<pre>{route}</pre>
+	</div>
+{/if}
+<p>
+	<a href={asr.makePath('index')}>Home</a>
+</p>

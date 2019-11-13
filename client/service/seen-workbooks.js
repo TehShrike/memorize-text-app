@@ -1,28 +1,33 @@
-import smallIndexedDb from 'small-indexeddb'
+import smallIndexedDb from 'small-indexeddb';
 
 export default async mediator => {
 	const transaction = await smallIndexedDb(`seen-sheets2`).catch(err => {
-		console.error(err)
-		return null
-	})
+		console.error(err);
+		return null;
+	});
 
 	if (transaction) {
 		mediator.provide(`rememberWorkbook`, (key, name) =>
-			transaction(`readwrite`, store => store.put({
-				key,
-				name,
-			}, key))
-		)
+			transaction(`readwrite`, store =>
+				store.put(
+					{
+						key,
+						name,
+					},
+					key
+				)
+			)
+		);
 
-		mediator.provide(`getAllSeenWorkbooks`, async() =>
+		mediator.provide(`getAllSeenWorkbooks`, async () =>
 			transaction(`readonly`, store => store.getAll())
-		)
+		);
 
-		mediator.provide(`forgetWorkbook`, async(key) => {
-			await transaction(`readwrite`, store => store.delete(key))
-		})
+		mediator.provide(`forgetWorkbook`, async key => {
+			await transaction(`readwrite`, store => store.delete(key));
+		});
 	} else {
-		mediator.provide(`rememberWorkbook`, async() => {})
-		mediator.provide(`getAllSeenWorkbooks`, async() => [])
+		mediator.provide(`rememberWorkbook`, async () => {});
+		mediator.provide(`getAllSeenWorkbooks`, async () => []);
 	}
-}
+};

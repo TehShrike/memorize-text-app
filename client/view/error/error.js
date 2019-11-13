@@ -1,11 +1,11 @@
-import ErrorPage from './Error.html'
+import ErrorPage from './Error.svelte';
 
 export default mediator => ({
 	name: `error`,
 	route: `error`,
-	querystringParams: [ `key` ],
+	querystringParams: [`key`],
 	template: ErrorPage,
 	async resolve(data, params) {
-		return params
+		return params;
 	},
-})
+});
