@@ -1,0 +1,148 @@
+<script>
+	import exampleWorkbooks from 'lib/example-workbooks';
+	import SpreadsheetInput from 'lib/component/SpreadsheetInput.svelte';
+
+	export let seenWorkbooks;
+	export let asr;
+	export let mediatorCall;
+</script>
+
+<style>
+	footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	@media (max-width: 600px) {
+		footer {
+			flex-direction: column;
+		}
+		footer > * {
+			flex-basis: 1.8rem;
+		}
+	}
+
+	footer > * {
+		text-align: center;
+
+		display: flex;
+	}
+	.footer-center {
+		flex-grow: 1;
+		max-width: 800px;
+	}
+	.footer-left,
+	.footer-right {
+		flex-basis: 64px;
+	}
+
+	.patreon-message {
+		display: flex;
+		align-items: center;
+		text-align: left;
+
+		font-size: 0.8rem;
+	}
+	.patreon-message > * {
+		padding: 0 4px;
+	}
+</style>
+
+<div class="container">
+
+	<header>
+		<h1 class="big">Memorize Text</h1>
+	</header>
+
+	<main>
+		{#if seenWorkbooks.length}
+			<h2>Review one of your decks</h2>
+
+			<ul>
+				{#each seenWorkbooks as seenWorkbook}
+					<li>
+						<a href={asr.makePath('workbook', { key: seenWorkbook.key })}>
+							{seenWorkbook.name}
+						</a>
+						(
+						<a
+							href={asr.makePath('workbook.info', { key: seenWorkbook.key })}
+							style="font-style: italic;">
+							more
+						</a>
+						)
+					</li>
+				{/each}
+			</ul>
+		{/if}
+
+		<h2>Memorize a new deck</h2>
+
+		<SpreadsheetInput {mediatorCall} />
+
+		<h2>What is this</h2>
+
+		<p>
+			Memorize Text is an "active recall" flash card memorization tool. There are many other
+			similar tools, but they tend to focus on memorizing single facts.
+		</p>
+		<p>
+			Memorize Text focuses on making it easier for you to memorize longer passages of text.
+			It is a tool for people who are memorizing poetry, or scripture, or a part in a play.
+		</p>
+		<p>
+			It is designed to be very simple for you to build and maintain your own decks of cards
+			to memorize.
+		</p>
+
+		<h2>Try an example deck</h2>
+
+		<ul>
+			{#each exampleWorkbooks as exampleWorkbook}
+				<li>
+					<a href={asr.makePath('workbook', { key: exampleWorkbook.key })}>
+						{exampleWorkbook.name}
+					</a>
+					{#if exampleWorkbook.moreInfoUrl}
+						(
+						<a
+							href={exampleWorkbook.moreInfoUrl}
+							style="font-style: italic;"
+							target="_blank"
+							rel="external">
+							more info
+						</a>
+						)
+					{/if}
+				</li>
+			{/each}
+		</ul>
+
+		<p>
+			<strong>
+				<a href={asr.makePath('new-deck')}>Add your deck of flash cards to memorize!</a>
+			</strong>
+		</p>
+	</main>
+
+	<footer>
+		<a
+			href="https://github.com/TehShrike/memorize-text-app/"
+			target="_blank"
+			rel="external"
+			class="footer-left">
+			Github
+		</a>
+		<div class="footer-center">
+			<div class="patreon-message">
+				<img src="images/duff.svg" alt="Duff logo" style="width: 36px;" />
+				<div>
+					This is a Josh Duff site. To help it stick around and be maintained,
+					<a href="https://www.patreon.com/TehShrike">support me on Patreon</a>
+					.
+				</div>
+			</div>
+		</div>
+		<div class="footer-right" />
+	</footer>
+</div>

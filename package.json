@@ -1,66 +1,66 @@
 {
-  "name": "flash-card-webapp",
-  "version": "1.0.0",
-  "description": "Memorize stuff. Add new decks by creating Google spreadsheets",
-  "main": "index.js",
-  "scripts": {
-    "test": "npm run glob:tests && rollup -c rollup.test.config.js | node | tap-color",
-    "build": "npm run prep-build && rollup -c",
-    "prep-build": "run-p create-symlinks glob:*",
-    "create-symlinks": "del-cli client/node_modules && make-dir client/node_modules/ && cd client/node_modules && symlink ../lib/ lib && cd ../../",
-    "serve": "live-server --wait=1000 public",
-    "dev": "cross-env NODE_ENV=development npm-run-all prep-build --parallel watch:* serve",
-    "watch:js": "rollup -c -w",
-    "watch:glob": "watch \"npx run-p glob:*\" client/service client/view",
-    "glob:tests": "glob-module-file --pattern=\"client/lib/**/*.test.js\" --format=cjs --pathPrefix=../ --outputPath=client/globbed-tests.js",
-    "glob:services": "glob-module-file --pattern=\"client/service/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-services.js",
-    "glob:views": "glob-module-file --pattern=\"client/view/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-views.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TehShrike/flash-card-webapp.git"
-  },
-  "keywords": [
-    "flash",
-    "card",
-    "webapp",
-    "memorize"
-  ],
-  "author": "TehShrike",
-  "license": "WTFPL",
-  "bugs": {
-    "url": "https://github.com/TehShrike/flash-card-webapp/issues"
-  },
-  "homepage": "https://github.com/TehShrike/flash-card-webapp#readme",
-  "dependencies": {
-    "abstract-state-router": "^6.1.0",
-    "asr-active-state-watcher": "^1.0.3",
-    "babel-minify": "^0.5.0",
-    "cross-env": "^5.2.0",
-    "del-cli": "^1.1.0",
-    "delay": "^4.3.0",
-    "glob-module-file": "^3.0.0",
-    "key-master": "3.0.0",
-    "make-dir-cli": "^1.0.0",
-    "mannish": "^4.0.1",
-    "npm-run-all": "^4.1.5",
-    "rollup": "^1.16.4",
-    "rollup-plugin-babel-minify": "^6.2.0",
-    "rollup-plugin-commonjs": "^10.0.1",
-    "rollup-plugin-node-resolve": "^4.2.4",
-    "rollup-plugin-svelte": "^5.1.0",
-    "sheetsy": "^2.2.0",
-    "small-indexeddb": "^2.0.0",
-    "svelte": "^2.16.1",
-    "svelte-querystring-router": "^2.0.0",
-    "svelte-state-renderer": "^2.0.0",
-    "symlink-cli": "^1.0.0",
-    "tap-color": "1.1.0",
-    "zora": "2.0.1"
-  },
-  "devDependencies": {
-    "live-server": "^1.2.1",
-    "rollup-plugin-visualizer": "^0.9.2",
-    "watch": "^1.0.2"
-  }
+	"name": "flash-card-webapp",
+	"version": "1.0.0",
+	"description": "Memorize stuff. Add new decks by creating Google spreadsheets",
+	"main": "index.js",
+	"scripts": {
+		"test": "npm run glob:tests && rollup -c rollup.test.config.js | node | tap-color",
+		"build": "npm run prep-build && rollup -c",
+		"prep-build": "run-p create-symlinks glob:*",
+		"create-symlinks": "del-cli client/node_modules && make-dir client/node_modules/ && cd client/node_modules && symlink ../lib/ lib && cd ../../",
+		"serve": "live-server --wait=1000 public",
+		"dev": "cross-env NODE_ENV=development npm-run-all prep-build --parallel watch:* serve",
+		"watch:js": "rollup -c -w",
+		"watch:glob": "watch \"npx run-p glob:*\" client/service client/view",
+		"glob:tests": "glob-module-file --pattern=\"client/lib/**/*.test.js\" --format=cjs --pathPrefix=../ --outputPath=client/globbed-tests.js",
+		"glob:services": "glob-module-file --pattern=\"client/service/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-services.js",
+		"glob:views": "glob-module-file --pattern=\"client/view/**/*.js\" --format=es --pathPrefix=../ --outputPath=client/globbed-views.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/TehShrike/flash-card-webapp.git"
+	},
+	"keywords": [
+		"flash",
+		"card",
+		"webapp",
+		"memorize"
+	],
+	"author": "TehShrike",
+	"license": "WTFPL",
+	"bugs": {
+		"url": "https://github.com/TehShrike/flash-card-webapp/issues"
+	},
+	"homepage": "https://github.com/TehShrike/flash-card-webapp#readme",
+	"dependencies": {
+		"abstract-state-router": "^6.1.0",
+		"asr-active-state-watcher": "^1.0.3",
+		"babel-minify": "^0.5.1",
+		"cross-env": "^6.0.3",
+		"del-cli": "^3.0.0",
+		"delay": "^4.3.0",
+		"glob-module-file": "^3.0.0",
+		"key-master": "^4.1.0",
+		"make-dir-cli": "^2.0.0",
+		"mannish": "^4.0.1",
+		"npm-run-all": "^4.1.5",
+		"rollup": "^1.16.4",
+		"rollup-plugin-babel-minify": "^9.1.1",
+		"rollup-plugin-commonjs": "^10.0.1",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"rollup-plugin-svelte": "^5.1.0",
+		"sheetsy": "^2.2.0",
+		"small-indexeddb": "^2.0.0",
+		"svelte": "^3.14.0",
+		"svelte-querystring-router": "^2.0.0",
+		"svelte-state-renderer": "^3.0.1",
+		"symlink-cli": "^1.0.0",
+		"tap-color": "^1.1.0",
+		"zora": "^3.1.4"
+	},
+	"devDependencies": {
+		"live-server": "^1.2.1",
+		"rollup-plugin-visualizer": "^2.7.2",
+		"watch": "^1.0.2"
+	}
 }

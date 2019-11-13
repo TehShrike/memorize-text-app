@@ -1,0 +1,61 @@
+<script>
+	import SpreadsheetInput from 'lib/component/SpreadsheetInput.svelte';
+
+	export let mediatorCall;
+	export let asr;
+</script>
+
+<style>
+	img {
+		box-shadow: 0px 0px 8px 1px var(--lightGray);
+		margin-bottom: 1rem;
+	}
+</style>
+
+<div class="container">
+
+	<main>
+		<h1>Add a new deck</h1>
+		<p>
+			Go to
+			<a href="https://docs.google.com/spreadsheets/" target="_blank" rel="external">
+				Google Sheets
+			</a>
+			and create a new "Blank" spreadsheet.
+		</p>
+		<p>
+			Type or paste in the prompts you want to memorize, one card per row in the spreadsheet.
+			The first column is the prompt, and the second column is the text that you are trying to
+			memorize.
+		</p>
+		<img
+			srcset="images/google-spreadsheet-columns-example.png 2x"
+			alt="A screenshot of a Google spreadsheet with prompts and answers" />
+		<p>You must have one header row at the top of your sheet.</p>
+		<p>You may have multiple sheets in your document to study them individually.</p>
+		<img
+			srcset="images/google-spreadsheet-multiple-sheets-example.png 2x"
+			alt="A screenshot of a Google Sheets workbook with multiple sheets" />
+		<p>Click the "File" menu at the top left, and choose "Publish to web...".</p>
+		<p>Click "Publish".</p>
+		<img
+			srcset="images/google-spreadsheet-publish-example.png 2x"
+			alt="A screenshot of the Google Sheets &quot;Publish to the Web&quot; dialog." />
+		<p>
+			Don't try to use the link that they give you in the "Publish" window, it won't work. It
+			is very important that you share your spreadsheet first.
+		</p>
+		<p>Close the "Publish to the Web" dialog.</p>
+		<p>Click the "Share" button at the top right.</p>
+		<p>Click "Get shareable link".</p>
+		<img
+			srcset="images/google-spreadsheet-share-dialog-example.png 2x"
+			alt="A screenshot of the Google Sheets share dialog." />
+		<SpreadsheetInput {mediatorCall} label="Paste the url into this field:" />
+
+	</main>
+
+	<footer>
+		<a href={asr.makePath('index')}>Home</a>
+	</footer>
+</div>
