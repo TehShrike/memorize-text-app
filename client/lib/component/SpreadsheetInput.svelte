@@ -12,8 +12,6 @@
 	function onsubmit(event) {
 		event.preventDefault();
 
-		console.log(mediatorCall);
-
 		try {
 			const key = urlToKey(sheetUrl);
 			mediatorCall(`stateGo`, `workbook`, { key });

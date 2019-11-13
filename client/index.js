@@ -11,10 +11,7 @@ import isTouchscreen from 'lib/is-touchscreen.js'
 const mediator = mannish()
 
 const renderer = makeSvelteStateRenderer({
-	methods: {
-		mediatorCall: mediator.call,
-	},
-	data: {
+	props: {
 		mediatorCall: mediator.call,
 	},
 })
